@@ -1,7 +1,8 @@
 FROM gorzechowski/{{image}}
 
 RUN apt-get -y update && apt-get -qy install \
-    libfcgi-dev
+    libfcgi-dev \
+    git
 
 RUN groupadd hetach && \
     useradd -g hetach -s /bin/bash hetach
