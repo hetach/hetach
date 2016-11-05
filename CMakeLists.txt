@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 2.8.8)
 
-project(hetach CXX)
+project(hetach C CXX)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    message(STATUS "Using GNU compiler")
     set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    message(STATUS "Using Clang compiler")
     set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++")
 endif()
 
@@ -111,7 +113,6 @@ if(HETACH_BUILD_TESTS)
     include_directories(
         ${GTEST_INCLUDE_DIRS}
         tests
-        /usr/include/c++/5
     )
 
     add_executable(hetachTest ${TEST_SOURCES} ${sources})

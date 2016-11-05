@@ -8,7 +8,6 @@ services:
 env:
   matrix:
     - IMAGE="gcc:xenial"
-    - IMAGE="clang:xenial"
 
 before_install:
   - ./docker/generateDockerfile.sh -t docker/Dockerfile.template -e image=$IMAGE >> Dockerfile
