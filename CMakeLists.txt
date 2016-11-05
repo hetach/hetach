@@ -111,6 +111,7 @@ if(HETACH_BUILD_TESTS)
     include_directories(
         ${GTEST_INCLUDE_DIRS}
         tests
+        /usr/include/c++/5
     )
 
     add_executable(hetachTest ${TEST_SOURCES} ${sources})

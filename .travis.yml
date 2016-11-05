@@ -7,9 +7,7 @@ services:
 
 env:
   matrix:
-    - IMAGE="gcc:trusty"
     - IMAGE="gcc:xenial"
-    - IMAGE="clang:trusty"
     - IMAGE="clang:xenial"
 
 before_install:
