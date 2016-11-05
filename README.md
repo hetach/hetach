@@ -1,10 +1,14 @@
-[![Build Status](https://travis-ci.org/hetach/hetach.svg?branch=master)](https://travis-ci.org/hetach/hetach)
+[![Build Status](https://travis-ci.org/hetach/hetach.svg?branch=develop)](https://travis-ci.org/hetach/hetach)
 
 # Hetach - simple web framework
 
 ## Description
 
 Hetach is a micro-framework written in C++, which goal is to speed up and help writing FastCGI applications.
+
+## Usage
+
+Please read [usage](https://github.com/hetach/hetach/blob/develop/docs/Usage.md) document or check out [examples](https://github.com/hetach/examples) repository.
 
 ## Build
 
@@ -18,7 +22,7 @@ make
 If You want to build tests, use following cmake command:
 
 ```
-cmake -DHETACH_BUILD_TESTS ..
+cmake -DHETACH_BUILD_TESTS=ON ..
 ```
 
 this will build `hetachTest` executable to run tests, or use `make test` command
