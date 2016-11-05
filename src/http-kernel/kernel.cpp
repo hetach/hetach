@@ -73,6 +73,8 @@ void Kernel::start()
 
                 controller->handle(request, response, resource->routeParams());
             }
+
+            delete resource;
         } catch(ResourceNotFoundException) {
             response->setStatusCode(404);
             response->setContent("Not found");
@@ -102,7 +104,6 @@ void Kernel::start()
 
         delete request;
         delete response;
-        delete resource;
     }
 }
 
