@@ -21,7 +21,6 @@
 #ifndef HETACH_HTTPKERNEL_KERNEL_H
 #define HETACH_HTTPKERNEL_KERNEL_H
 
-#include <iostream>
 #include <map>
 #include <fcgio.h>
 
@@ -43,10 +42,6 @@ namespace Hetach {
             void add(std::string path, Controller *controller);
 
         protected:
-            std::streambuf *m_cin;
-            std::streambuf *m_cout;
-            std::streambuf *m_cerr;
-
             std::map<std::string, Controller*> m_controllers;
             Hetach::Router::Router *m_router;
         };

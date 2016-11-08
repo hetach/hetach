@@ -21,7 +21,6 @@
 #include <iterator>
 #include <router/router.h>
 #include <router/resourcenotfoundexception.h>
-#include <iostream>
 #include <string>
 
 #include "http-kernel/header.h"
@@ -42,10 +41,6 @@ Kernel::Kernel()
 
 void Kernel::start()
 {
-    this->m_cin  = cin.rdbuf();
-    this->m_cout = cout.rdbuf();
-    this->m_cerr = cerr.rdbuf();
-
     FCGX_Request fcgiRequest;
 
     FCGX_Init();
@@ -56,10 +51,6 @@ void Kernel::start()
     Resource *resource;
 
     while (FCGX_Accept_r(&fcgiRequest) == 0) {
-        fcgi_streambuf cin_fcgi_streambuf(fcgiRequest.in);
-        fcgi_streambuf cout_fcgi_streambuf(fcgiRequest.out);
-        fcgi_streambuf cerr_fcgi_streambuf(fcgiRequest.err);
-
         request = Request::create(&fcgiRequest);
         response = new Response();
 
@@ -86,21 +77,17 @@ void Kernel::start()
             response->setContent("Method unknown");
         }
 
-        cin.rdbuf(&cin_fcgi_streambuf);
-        cout.rdbuf(&cout_fcgi_streambuf);
-        cerr.rdbuf(&cerr_fcgi_streambuf);
-
         list<Header> headers = response->headers();
 
         for(list<Header>::iterator it = headers.begin(); it != headers.end(); ++it) {
             Header header = static_cast<Header>(*it);
 
-            cout << header.name() << ": " << header.value() << "\r\n";
+            string data = header.toString() + "\n";
+
+            FCGX_PutStr(data.data(), data.size(), fcgiRequest.out);
         }
 
-        cout << "\r\n";
-
-        cout << response->content();
+        FCGX_PutStr(response->content().data(), response->content().size(), fcgiRequest.out);
 
         delete request;
         delete response;
@@ -109,9 +96,6 @@ void Kernel::start()
 
 void Kernel::quit()
 {
-    cin.rdbuf(this->m_cin);
-    cout.rdbuf(this->m_cout);
-    cerr.rdbuf(this->m_cerr);
 }
 
 void Kernel::add(string path, Controller *controller)

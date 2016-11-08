@@ -44,3 +44,8 @@ string Header::value()
 {
     return this->m_value;
 }
+
+string Header::toString()
+{
+    return this->name() + ": " + this->value();
+}

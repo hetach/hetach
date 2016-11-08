@@ -33,6 +33,7 @@ namespace Hetach {
 
             std::string name();
             std::string value();
+            std::string toString();
 
         protected:
             std::string m_name;
