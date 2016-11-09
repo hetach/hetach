@@ -29,9 +29,9 @@
 #include "api-rest/entitycollection.h"
 
 namespace Hetach {
-    namespace HttpKernel {
-        class Resposne;
+    namespace Http {
         class Request;
+        class Resposne;
     }
 
     namespace Router {
@@ -44,13 +44,13 @@ namespace Hetach {
         public:
             RestController(Resource *resource);
 
-            Hetach::HttpKernel::Response* doGet();
-            Hetach::HttpKernel::Response* doPost();
-            Hetach::HttpKernel::Response* doPatch();
-            Hetach::HttpKernel::Response* doPut();
-            Hetach::HttpKernel::Response* doDelete();
+            void doGet();
+            void doPost();
+            void doPatch();
+            void doPut();
+            void doDelete();
 
-            Hetach::HttpKernel::Response* handle(HttpKernel::Request *request, HttpKernel::Response *response, Router::Params *routeParams);
+            void handle(Http::Request *request, Http::Response *response, Router::Params *routeParams);
 
         protected:
             Resource *m_resource;

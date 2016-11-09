@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http-kernel/fixtures/requestfixture.h"
-#include "http-kernel/header.h"
+#include "http/fixtures/requestfixture.h"
+#include "http/header.h"
 
 using namespace std;
-using namespace Hetach::HttpKernel;
+using namespace Hetach::Http;
 
 TEST_F(RequestFixture, testGetMethod)
 {

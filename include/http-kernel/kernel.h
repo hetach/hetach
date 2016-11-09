@@ -31,14 +31,19 @@ namespace Hetach {
         class Router;
     }
 
+    namespace Http {
+        class Response;
+        class Request;
+    }
+
     namespace HttpKernel {
         class Kernel
         {
         public:
             Kernel();
 
-            void start();
-            void quit();
+            Http::Response* handle(Http::Request *request);
+
             void add(std::string path, Controller *controller);
 
         protected:

@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include "http/request.h"
+#include "http/response.h"
 #include "http-kernel/methodunknownexception.h"
 #include "http-kernel/methodnotimplementedexception.h"
 #include "http-kernel/controller.h"
@@ -26,43 +28,44 @@
 
 using namespace std;
 using namespace Hetach::HttpKernel;
+using namespace Hetach::Http;
 
 Controller::Controller()
 {
 
 }
 
-Response* Controller::doGet()
+void Controller::doGet()
 {
     throw MethodNotImplementedException();
 }
 
-Response* Controller::doPost(string)
+void Controller::doPost(string)
 {
     throw MethodNotImplementedException();
 }
 
-Response* Controller::doPut(string)
+void Controller::doPut(string)
 {
     throw MethodNotImplementedException();
 }
 
-Response* Controller::doPatch(string)
+void Controller::doPatch(string)
 {
     throw MethodNotImplementedException();
 }
 
-Response* Controller::doDelete()
+void Controller::doDelete()
 {
     throw MethodNotImplementedException();
 }
 
-Response* Controller::doOptions()
+void Controller::doOptions()
 {
     throw MethodNotImplementedException();
 }
 
-Response* Controller::handle(Request *request, Response *response, Hetach::Router::Params *routeParams)
+void Controller::handle(Request *request, Response *response, Hetach::Router::Params *routeParams)
 {
     this->m_request = request;
     this->m_routeParams = routeParams;
@@ -97,6 +100,4 @@ Response* Controller::handle(Request *request, Response *response, Hetach::Route
             throw MethodUnknownException();
             break;
     }
-
-    return this->m_response;
 }

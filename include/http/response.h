@@ -18,42 +18,41 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_APPLICATION_H
-#define HETACH_APPLICATION_H
+#ifndef HETACH_HTTP_RESPONSE_H
+#define HETACH_HTTP_RESPONSE_H
 
 #include <string>
-#include <functional>
-
-class evhttp;
+#include <list>
 
 namespace Hetach {
-    namespace HttpKernel {
-        class Kernel;
-        class Controller;
+    namespace Http {
+        class Header;
+
+        class Response
+        {
+        public:
+            Response();
+
+            void setContent(std::string content);
+            std::string content();
+
+            std::list<Header> headers();
+            Header header(std::string name);
+            void addHeader(Header newHeader);
+            void addHeader(std::string name, std::string value);
+            void addHeader(std::string name, int value);
+
+            void setStatusCode(int code);
+            int statusCode();
+
+        protected:
+            std::string m_content;
+            std::list<Header> m_headers;
+            int m_statusCode;
+
+            void addDefaultHeaders();
+        };
     }
-
-    class Application
-    {
-    public:
-        Application();
-        Application(std::string listenAddress, int listenPort);
-        Application(std::string listenAddress, int listenPort, HttpKernel::Kernel *kernel);
-        Application(HttpKernel::Kernel *kernel);
-
-        void route(std::string route, HttpKernel::Controller *controller);
-
-        virtual void boot();
-        virtual void quit();
-
-    protected:
-        HttpKernel::Kernel *m_kernel;
-
-    private:
-        std::string m_listenAddres;
-        int m_listenPort;
-
-        evhttp *m_httpd;
-    };
 }
 
-#endif // HETACH_APPLICATION_H
+#endif // HETACH_HTTP_RESPONSE_H

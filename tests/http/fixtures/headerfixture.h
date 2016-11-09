@@ -18,34 +18,30 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HTTPKERNEL_FIXTURES_RESPONSEFIXTURE_H
-#define HTTPKERNEL_FIXTURES_RESPONSEFIXTURE_H
+#ifndef HTTP_FIXTURES_HEADERFIXTURE_H
+#define HTTP_FIXTURES_HEADERFIXTURE_H
 
 #include "gtest/gtest.h"
-#include "http-kernel/response.h"
-#include "http-kernel/header.h"
+#include "http/header.h"
 
-class ResponseFixture: public testing::Test
+class HeaderFixture: public testing::Test
 {
 public:
-    Hetach::HttpKernel::Response *response;
-    Hetach::HttpKernel::Header *contentType;
-    Hetach::HttpKernel::Header *status;
-    Hetach::HttpKernel::Header *customHeader;
+    Hetach::Http::Header *headerOne;
+    Hetach::Http::Header *headerTwo;
 
-    ResponseFixture()
+    HeaderFixture()
     {
-        response = new Hetach::HttpKernel::Response();
-        contentType = new Hetach::HttpKernel::Header("Content-type", "text/html");
-        status = new Hetach::HttpKernel::Header("Status", "200");
-        customHeader = new Hetach::HttpKernel::Header("name", "value");
+        headerOne = new Hetach::Http::Header("One", "1");
+        headerTwo = new Hetach::Http::Header("Two", 2);
     }
 
-    ~ResponseFixture()
+    ~HeaderFixture()
     {
-        delete response;
+        delete headerOne;
+        delete headerTwo;
     }
 };
 
-#endif // HTTPKERNEL_FIXTURES_RESPONSEFIXTURE_H
+#endif // HTTP_FIXTURES_HEADERFIXTURE_H
 

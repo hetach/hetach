@@ -18,41 +18,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_HTTPKERNEL_RESPONSE_H
-#define HETACH_HTTPKERNEL_RESPONSE_H
+#ifndef HETACH_HTTP_HEADER_H
+#define HETACH_HTTP_HEADER_H
 
 #include <string>
-#include <list>
 
 namespace Hetach {
-    namespace HttpKernel {
-        class Header;
-
-        class Response
+    namespace Http {
+        class Header
         {
         public:
-            Response();
+            Header(std::string name, std::string value);
+            Header(std::string name, int value);
 
-            void setContent(std::string content);
-            std::string content();
-
-            std::list<Header> headers();
-            Header header(std::string name);
-            void addHeader(Header newHeader);
-            void addHeader(std::string name, std::string value);
-            void addHeader(std::string name, int value);
-
-            void setStatusCode(int code);
-            int statusCode();
+            std::string name();
+            std::string value();
+            std::string toString();
 
         protected:
-            std::string m_content;
-            std::list<Header> m_headers;
-            int m_statusCode;
-
-            void addDefaultHeaders();
+            std::string m_name;
+            std::string m_value;
         };
     }
 }
 
-#endif // HETACH_HTTPKERNEL_RESPONSE_H
+#endif // HETACH_HTTP_HEADER_H

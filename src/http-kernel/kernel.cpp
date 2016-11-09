@@ -23,15 +23,15 @@
 #include <router/resourcenotfoundexception.h>
 #include <string>
 
-#include "http-kernel/header.h"
 #include "http-kernel/kernel.h"
-#include "http-kernel/request.h"
-#include "http-kernel/response.h"
+#include "http/request.h"
+#include "http/response.h"
 #include "http-kernel/methodnotimplementedexception.h"
 #include "http-kernel/methodunknownexception.h"
 
 using namespace std;
 using namespace Hetach::HttpKernel;
+using namespace Hetach::Http;
 using namespace Hetach::Router;
 
 Kernel::Kernel()
@@ -39,63 +39,35 @@ Kernel::Kernel()
     this->m_router = new ::Router();
 }
 
-void Kernel::start()
+Response* Kernel::handle(Request *request)
 {
-    FCGX_Request fcgiRequest;
-
-    FCGX_Init();
-    FCGX_InitRequest(&fcgiRequest, 0, 0);
-
-    Request *request;
-    Response *response;
+    Response *response = new Response();
     Resource *resource;
 
-    while (FCGX_Accept_r(&fcgiRequest) == 0) {
-        request = Request::create(&fcgiRequest);
-        response = new Response();
+    try {
+        resource = this->m_router->match(request->path());
 
-        try {
-            resource = this->m_router->match(request->path());
+        map<string, Controller*>::iterator it = this->m_controllers.find("/");
 
-            map<string, Controller*>::iterator it = this->m_controllers.find(resource->compiledRoute().rawPath());
+        if(it != this->m_controllers.end()) {
+            Controller *controller = dynamic_cast<Controller*>(it->second);
 
-            if(it != this->m_controllers.end()) {
-                Controller *controller = dynamic_cast<Controller*>(it->second);
-
-                controller->handle(request, response, resource->routeParams());
-            }
-
-            delete resource;
-        } catch(ResourceNotFoundException) {
-            response->setStatusCode(404);
-            response->setContent("Not found");
-        } catch(MethodNotImplementedException) {
-            response->setStatusCode(501);
-            response->setContent("Not implemented");
-        } catch(MethodUnknownException) {
-            response->setStatusCode(500);
-            response->setContent("Method unknown");
+            controller->handle(request, response, new Hetach::Router::Params());
         }
 
-        list<Header> headers = response->headers();
-
-        for(list<Header>::iterator it = headers.begin(); it != headers.end(); ++it) {
-            Header header = static_cast<Header>(*it);
-
-            string data = header.toString() + "\n";
-
-            FCGX_PutStr(data.data(), data.size(), fcgiRequest.out);
-        }
-
-        FCGX_PutStr(response->content().data(), response->content().size(), fcgiRequest.out);
-
-        delete request;
-        delete response;
+        delete resource;
+    } catch(ResourceNotFoundException) {
+        response->setStatusCode(404);
+        response->setContent("Not found");
+    } catch(MethodNotImplementedException) {
+        response->setStatusCode(501);
+        response->setContent("Not implemented");
+    } catch(MethodUnknownException) {
+        response->setStatusCode(500);
+        response->setContent("Method unknown");
     }
-}
 
-void Kernel::quit()
-{
+    return response;
 }
 
 void Kernel::add(string path, Controller *controller)

@@ -18,28 +18,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_HTTPKERNEL_HEADER_H
-#define HETACH_HTTPKERNEL_HEADER_H
+#include "http/header.h"
 
-#include <string>
+using namespace std;
+using namespace Hetach::Http;
 
-namespace Hetach {
-    namespace HttpKernel {
-        class Header
-        {
-        public:
-            Header(std::string name, std::string value);
-            Header(std::string name, int value);
-
-            std::string name();
-            std::string value();
-            std::string toString();
-
-        protected:
-            std::string m_name;
-            std::string m_value;
-        };
-    }
+Header::Header(string name, string value)
+{
+    this->m_name = name;
+    this->m_value = value;
 }
 
-#endif // HETACH_HTTPKERNEL_HEADER_H
+Header::Header(string name, int value)
+{
+    this->m_name = name;
+    this->m_value = to_string(value);
+}
+
+string Header::name()
+{
+    return this->m_name;
+}
+
+string Header::value()
+{
+    return this->m_value;
+}
+
+string Header::toString()
+{
+    return this->name() + ": " + this->value();
+}

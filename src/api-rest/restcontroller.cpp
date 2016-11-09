@@ -19,8 +19,8 @@
  */
 
 #include <http-kernel/controller.h>
-#include <http-kernel/response.h>
-#include <http-kernel/header.h>
+#include <http/response.h>
+#include <http/header.h>
 #include <router/params.h>
 #include <router/paramnotfoundexception.h>
 
@@ -29,6 +29,7 @@
 using namespace std;
 using namespace Hetach::ApiRest;
 using namespace Hetach::HttpKernel;
+using namespace Hetach::Http;
 using namespace Hetach::Router;
 
 RestController::RestController(Resource *resource): Controller()
@@ -36,7 +37,7 @@ RestController::RestController(Resource *resource): Controller()
     this->m_resource = resource;
 }
 
-Response* RestController::doGet()
+void RestController::doGet()
 {
     string content;
 
@@ -57,11 +58,9 @@ Response* RestController::doGet()
     }
 
     this->response()->setContent(content);
-
-    return this->response();
 }
 
-Response* RestController::doPost()
+void RestController::doPost()
 {
     Entity *entity = this->m_resource->create();
 
@@ -70,11 +69,9 @@ Response* RestController::doPost()
     delete entity;
 
     this->response()->setContent(content);
-
-    return this->response();
 }
 
-Response* RestController::doPatch()
+void RestController::doPatch()
 {
     string content;
 
@@ -95,11 +92,9 @@ Response* RestController::doPatch()
     }
 
     this->response()->setContent(content);
-
-    return this->response();
 }
 
-Response* RestController::doPut()
+void RestController::doPut()
 {
     string content;
 
@@ -120,11 +115,9 @@ Response* RestController::doPut()
     }
 
     this->response()->setContent(content);
-
-    return this->response();
 }
 
-Response* RestController::doDelete()
+void RestController::doDelete()
 {
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
@@ -136,17 +129,13 @@ Response* RestController::doDelete()
 
     this->response()->setContent("");
     this->response()->setStatusCode(204);
-
-    return this->response();
 }
 
-Response* RestController::handle(Request *request, Response *response, Router::Params *routeParams)
+void RestController::handle(Request *request, Response *response, Router::Params *routeParams)
 {
     Controller::handle(request, response, routeParams);
 
     this->response()->addHeader(Header("Content-type", "application/json"));
-
-    return this->response();
 }
 
 string RestController::buildJson(Entity *entity)

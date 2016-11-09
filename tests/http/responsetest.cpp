@@ -18,26 +18,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http-kernel/fixtures/responsefixture.h"
-#include "http-kernel/header.h"
+#include "http/fixtures/responsefixture.h"
+#include "http/header.h"
 
 #include "gtest/gtest.h"
 
 using namespace std;
-using namespace Hetach::HttpKernel;
+using namespace Hetach::Http;
 
 TEST_F(ResponseFixture, testDefaultHeaders)
 {
     list<Header> headers = response->headers();
 
     Header first = static_cast<Header>(headers.front());
-    Header last = static_cast<Header>(headers.back());
 
-    EXPECT_EQ(2, headers.size());
-    EXPECT_EQ(status->name(), first.name());
-    EXPECT_EQ(status->value(), first.value());
-    EXPECT_EQ(contentType->name(), last.name());
-    EXPECT_EQ(contentType->value(), last.value());
+    EXPECT_EQ(1, headers.size());
+    EXPECT_EQ(contentType->name(), first.name());
+    EXPECT_EQ(contentType->value(), first.value());
 }
 
 TEST_F(ResponseFixture, testDefaultContent)
@@ -53,8 +50,8 @@ TEST_F(ResponseFixture, testDefaultStatusCode)
 TEST_F(ResponseFixture, testSetStatusCode)
 {
     response->setStatusCode(500);
+
     EXPECT_EQ(500, response->statusCode());
-    EXPECT_EQ("500", response->header("Status").value());
 }
 
 TEST_F(ResponseFixture, testAddHeader)
@@ -63,24 +60,25 @@ TEST_F(ResponseFixture, testAddHeader)
 
     Header last = static_cast<Header>(response->headers().back());
 
-    EXPECT_EQ(3, response->headers().size());
+    EXPECT_EQ(2, response->headers().size());
     EXPECT_EQ(customHeader->name(), last.name());
     EXPECT_EQ(customHeader->value(), last.value());
 }
 
 TEST_F(ResponseFixture, testReplaceHeader)
 {
-    response->addHeader(Header(status->name(), "304"));
+    response->addHeader(Header(contentType->name(), "test"));
 
     Header first = static_cast<Header>(response->headers().front());
 
-    EXPECT_EQ(2, response->headers().size());
-    EXPECT_EQ(status->name(), first.name());
-    EXPECT_EQ("304", first.value());
+    EXPECT_EQ(1, response->headers().size());
+    EXPECT_EQ(contentType->name(), first.name());
+    EXPECT_EQ("test", first.value());
 }
 
 TEST_F(ResponseFixture, testSetContent)
 {
     response->setContent("some content");
+
     EXPECT_EQ("some content", response->content());
 }

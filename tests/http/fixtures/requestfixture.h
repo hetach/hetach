@@ -18,17 +18,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HTTPKERNEL_FIXTURES_REQUESTFIXTURE_H
-#define HTTPKERNEL_FIXTURES_REQUESTFIXTURE_H
+#ifndef HTTP_FIXTURES_REQUESTFIXTURE_H
+#define HTTP_FIXTURES_REQUESTFIXTURE_H
 
 #include "gtest/gtest.h"
-#include "http-kernel/request.h"
+#include "http/request.h"
 
 class RequestFixture: public testing::Test
 {
 public:
-    Hetach::HttpKernel::Request *noContentRequest;
-    Hetach::HttpKernel::Request *contentRequest;
+    Hetach::Http::Request *noContentRequest;
+    Hetach::Http::Request *contentRequest;
 
     std::string path = "/some/path";
     std::string content = "some content";
@@ -37,15 +37,15 @@ public:
 
     RequestFixture()
     {
-        noContentRequest = new Hetach::HttpKernel::Request(Hetach::HttpKernel::Request::METHOD_GET, path);
-        contentRequest = new Hetach::HttpKernel::Request(Hetach::HttpKernel::Request::METHOD_GET, path, content);
+        noContentRequest = new Hetach::Http::Request(Hetach::Http::Request::METHOD_GET, path);
+        contentRequest = new Hetach::Http::Request(Hetach::Http::Request::METHOD_GET, path, content);
 
-        methods.insert(std::make_pair("GET", Hetach::HttpKernel::Request::METHOD_GET));
-        methods.insert(std::make_pair("POST", Hetach::HttpKernel::Request::METHOD_POST));
-        methods.insert(std::make_pair("PUT", Hetach::HttpKernel::Request::METHOD_PUT));
-        methods.insert(std::make_pair("PATCH", Hetach::HttpKernel::Request::METHOD_PATCH));
-        methods.insert(std::make_pair("DELETE", Hetach::HttpKernel::Request::METHOD_DELETE));
-        methods.insert(std::make_pair("OPTIONS", Hetach::HttpKernel::Request::METHOD_OPTIONS));
+        methods.insert(std::make_pair("GET", Hetach::Http::Request::METHOD_GET));
+        methods.insert(std::make_pair("POST", Hetach::Http::Request::METHOD_POST));
+        methods.insert(std::make_pair("PUT", Hetach::Http::Request::METHOD_PUT));
+        methods.insert(std::make_pair("PATCH", Hetach::Http::Request::METHOD_PATCH));
+        methods.insert(std::make_pair("DELETE", Hetach::Http::Request::METHOD_DELETE));
+        methods.insert(std::make_pair("OPTIONS", Hetach::Http::Request::METHOD_OPTIONS));
     }
 
     ~RequestFixture()
@@ -55,5 +55,5 @@ public:
     }
 };
 
-#endif // HTTPKERNEL_FIXTURES_REQUESTFIXTURE_H
+#endif // HTTP_FIXTURES_REQUESTFIXTURE_H
 

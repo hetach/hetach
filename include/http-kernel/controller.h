@@ -24,10 +24,12 @@
 #include <map>
 #include <string>
 
-#include "http-kernel/response.h"
-#include "http-kernel/request.h"
-
 namespace Hetach {
+    namespace Http {
+        class Request;
+        class Response;
+    }
+
     namespace Router {
         class Params;
     }
@@ -38,22 +40,22 @@ namespace Hetach {
         public:
             Controller();
 
-            Response* response() { return m_response; }
-            Request* request() { return m_request; }
+            Http::Response* response() { return m_response; }
+            Http::Request* request() { return m_request; }
             Hetach::Router::Params* routeParams() { return m_routeParams; }
 
-            virtual Response* doGet();
-            virtual Response* doPost(std::string content);
-            virtual Response* doPut(std::string content);
-            virtual Response* doPatch(std::string content);
-            virtual Response* doDelete();
-            virtual Response* doOptions();
+            virtual void doGet();
+            virtual void doPost(std::string content);
+            virtual void doPut(std::string content);
+            virtual void doPatch(std::string content);
+            virtual void doDelete();
+            virtual void doOptions();
 
-            virtual Response* handle(Request *request, Response *response, Hetach::Router::Params *routeParams);
+            virtual void handle(Http::Request *request, Http::Response *response, Hetach::Router::Params *routeParams);
 
         protected:
-            Response *m_response;
-            Request *m_request;
+            Http::Response *m_response;
+            Http::Request *m_request;
             Hetach::Router::Params *m_routeParams;
         };
     }

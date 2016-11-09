@@ -18,23 +18,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_HTTPKERNEL_REQUEST_H
-#define HETACH_HTTPKERNEL_REQUEST_H
+#ifndef HETACH_HTTP_REQUEST_H
+#define HETACH_HTTP_REQUEST_H
 
 #include <list>
 #include <string>
 #include <fcgio.h>
+#include <evhttp.h>
 
 namespace Hetach {
-    namespace HttpKernel {
+    namespace Http {
         class Request
         {
         public:
             Request(int method, std::string path, std::string content = "");
 
             static Request* create(FCGX_Request *request);
+            static Request* create(evhttp_request *request);
 
             static int methodFromString(std::string method);
+            static int methodFromHttpCommand(int method);
 
             enum HttpMethod {
                 METHOD_GET = 0,
@@ -59,4 +62,4 @@ namespace Hetach {
 }
 
 
-#endif // HETACH_HTTPKERNEL_REQUEST_H
+#endif // HETACH_HTTP_REQUEST_H

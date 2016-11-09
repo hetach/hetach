@@ -18,34 +18,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http-kernel/header.h"
+#ifndef HTTP_FIXTURES_RESPONSEFIXTURE_H
+#define HTTP_FIXTURES_RESPONSEFIXTURE_H
 
-using namespace std;
-using namespace Hetach::HttpKernel;
+#include "gtest/gtest.h"
+#include "http/response.h"
+#include "http/header.h"
 
-Header::Header(string name, string value)
+class ResponseFixture: public testing::Test
 {
-    this->m_name = name;
-    this->m_value = value;
-}
+public:
+    Hetach::Http::Response *response;
+    Hetach::Http::Header *contentType;
+    Hetach::Http::Header *status;
+    Hetach::Http::Header *customHeader;
 
-Header::Header(string name, int value)
-{
-    this->m_name = name;
-    this->m_value = to_string(value);
-}
+    ResponseFixture()
+    {
+        response = new Hetach::Http::Response();
+        contentType = new Hetach::Http::Header("Content-type", "text/html");
+        status = new Hetach::Http::Header("Status", "200");
+        customHeader = new Hetach::Http::Header("name", "value");
+    }
 
-string Header::name()
-{
-    return this->m_name;
-}
+    ~ResponseFixture()
+    {
+        delete response;
+    }
+};
 
-string Header::value()
-{
-    return this->m_value;
-}
+#endif // HTTP_FIXTURES_RESPONSEFIXTURE_H
 
-string Header::toString()
-{
-    return this->name() + ": " + this->value();
-}

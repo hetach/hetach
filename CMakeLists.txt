@@ -16,6 +16,8 @@ set(HETACH_VERSION_MAJOR 0)
 set(HETACH_VERSION_MINOR 1)
 set(HETACH_VERSION_PATCH 0)
 
+add_definitions(-DHETACH_VERSION="${HETACH_VERSION_MAJOR}.${HETACH_VERSION_MINOR}.${HETACH_VERSION_PATCH}")
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
@@ -24,6 +26,7 @@ set(
     sources
 
     src/application.cpp
+    src/fcgiapplication.cpp
 
     src/api-rest/apirest.cpp
     src/api-rest/entity.cpp
@@ -31,11 +34,12 @@ set(
     src/api-rest/resource.cpp
     src/api-rest/restcontroller.cpp
 
+    src/http/header.cpp
+    src/http/request.cpp
+    src/http/response.cpp
+
     src/http-kernel/controller.cpp
-    src/http-kernel/header.cpp
     src/http-kernel/kernel.cpp
-    src/http-kernel/request.cpp
-    src/http-kernel/response.cpp
 
     src/router/compiledroute.cpp
     src/router/params.cpp
@@ -45,6 +49,7 @@ set(
     src/router/router.cpp
 
     include/application.h
+    include/fcgiapplication.h
 
     include/api-rest/apirest.h
     include/api-rest/entity.h
@@ -52,14 +57,15 @@ set(
     include/api-rest/resource.h
     include/api-rest/restcontroller.h
 
+    include/http/header.h
+    include/http/request.h
+    include/http/response.h
+
     include/http-kernel/controller.h
-    include/http-kernel/header.h
     include/http-kernel/kernel.h
     include/http-kernel/headernotfoundexception.h
     include/http-kernel/methodnotimplementedexception.h
     include/http-kernel/methodunknownexception.h
-    include/http-kernel/request.h
-    include/http-kernel/response.h
 
     include/router/compiledroute.h
     include/router/params.h
@@ -76,6 +82,7 @@ add_library(hetach SHARED ${sources})
 
 target_link_libraries(hetach fcgi${CMAKE_SHARED_LIBRARY_SUFFIX})
 target_link_libraries(hetach fcgi++${CMAKE_SHARED_LIBRARY_SUFFIX})
+target_link_libraries(hetach event${CMAKE_SHARED_LIBRARY_SUFFIX})
 
 #
 # TESTS
@@ -96,18 +103,18 @@ if(HETACH_BUILD_TESTS)
         tests/router/routecompilertest.cpp
         tests/router/routertest.cpp
 
-        tests/http-kernel/headertest.cpp
-        tests/http-kernel/responsetest.cpp
-        tests/http-kernel/requesttest.cpp
+        tests/http/headertest.cpp
+        tests/http/responsetest.cpp
+        tests/http/requesttest.cpp
 
         tests/router/fixtures/compiledroutefixture.h
         tests/router/fixtures/resourcefixture.h
         tests/router/fixtures/routecompilerfixture.h
         tests/router/fixtures/routerfixture.h
 
-        tests/http-kernel/fixtures/headerfixture.h
-        tests/http-kernel/fixtures/responsefixture.h
-        tests/http-kernel/fixtures/requestfixture.h
+        tests/http/fixtures/headerfixture.h
+        tests/http/fixtures/responsefixture.h
+        tests/http/fixtures/requestfixture.h
     )
 
     include_directories(
@@ -121,6 +128,7 @@ if(HETACH_BUILD_TESTS)
 
     target_link_libraries(hetachTest fcgi${CMAKE_SHARED_LIBRARY_SUFFIX})
     target_link_libraries(hetachTest fcgi++${CMAKE_SHARED_LIBRARY_SUFFIX})
+    target_link_libraries(hetachTest event${CMAKE_SHARED_LIBRARY_SUFFIX})
 
     target_link_libraries(
         hetachTest

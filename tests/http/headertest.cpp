@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http-kernel/fixtures/headerfixture.h"
+#include "http/fixtures/headerfixture.h"
 
 TEST_F(HeaderFixture, testGetName)
 {
