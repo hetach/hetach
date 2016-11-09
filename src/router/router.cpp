@@ -32,24 +32,24 @@ Router::Router()
     this->m_compiler = new RouteCompiler();
 }
 
-void Router::addRoute(Route route)
+void Router::addRoute(Route *route)
 {
-    this->m_routes.push_back(route);
+    this->m_routes.insert(make_pair(route, this->m_compiler->compile(route)));
 }
 
 Resource* Router::match(string path)
 {
-    for(list<Route>::iterator it = this->m_routes.begin(); it != this->m_routes.end(); ++it) {
-        Route route = static_cast<Route>(*it);
-        CompiledRoute compiled = this->m_compiler->compile(route);
+    for(map<Route*, CompiledRoute*>::iterator it = this->m_routes.begin(); it != this->m_routes.end(); ++it) {
+        Route *route = it->first;
+        CompiledRoute *compiled = it->second;
         map<string, string> routeParams;
 
-        if(route.path() == path) {
+        if(path == route->path()) {
             return new Resource(route, compiled, new Params(routeParams));
         }
 
         smatch sm;
-        regex reg(compiled.pattern());
+        regex reg(compiled->pattern());
         regex_match(path, sm, reg);
 
         if(sm.size() < 1) {
@@ -57,7 +57,7 @@ Resource* Router::match(string path)
         }
 
         for(int i = 1; i < sm.size(); i++) {
-            string name = compiled.pathVariables()[i - 1];
+            string name = compiled->pathVariables()[i - 1];
             string value = sm[i];
 
             routeParams.insert(make_pair(name, value));

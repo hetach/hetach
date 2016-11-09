@@ -35,8 +35,8 @@ TEST_F(RouterFixture, testSimpleRouteMatched)
 
     vector<string> pathVariables;
 
-    EXPECT_EQ("/users", resource->route().path());
-    EXPECT_EQ(pathVariables, resource->compiledRoute().pathVariables());
+    EXPECT_EQ("/users", resource->route()->path());
+    EXPECT_EQ(pathVariables, resource->compiledRoute()->pathVariables());
 }
 
 TEST_F(RouterFixture, testParametrizedRouteMatched)
@@ -45,13 +45,13 @@ TEST_F(RouterFixture, testParametrizedRouteMatched)
 
     vector<string> pathVariables = {"id"};
 
-    EXPECT_EQ("/users/{id}", resource->route().path());
-    EXPECT_EQ(pathVariables, resource->compiledRoute().pathVariables());
+    EXPECT_EQ("/users/{id}", resource->route()->path());
+    EXPECT_EQ(pathVariables, resource->compiledRoute()->pathVariables());
 
     resource = router->match("/companies/1000/users/123");
 
     pathVariables = {"companyId", "userId"};
 
-    EXPECT_EQ("/companies/{companyId}/users/{userId}", resource->route().path());
-    EXPECT_EQ(pathVariables, resource->compiledRoute().pathVariables());
+    EXPECT_EQ("/companies/{companyId}/users/{userId}", resource->route()->path());
+    EXPECT_EQ(pathVariables, resource->compiledRoute()->pathVariables());
 }

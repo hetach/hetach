@@ -37,7 +37,7 @@ namespace Hetach {
                 return "([a-zA-Z0-9]+)";
             }
 
-            CompiledRoute compile(Route route);
+            CompiledRoute* compile(Route *route);
         };
     }
 }

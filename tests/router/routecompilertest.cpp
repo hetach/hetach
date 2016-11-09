@@ -28,9 +28,9 @@ TEST_F(RouteCompilerFixture, testCompileRoute)
     for(map<Route*, CompiledRoute*>::iterator it = routes.begin(); it != routes.end(); ++it) {
         Route *route = dynamic_cast<Route*>(it->first);
         CompiledRoute *expectedCompiledRoute = dynamic_cast<CompiledRoute*>(it->second);
-        CompiledRoute compiledRoute = routeCompiler->compile(*route);
+        CompiledRoute *compiledRoute = routeCompiler->compile(route);
 
-        EXPECT_EQ(expectedCompiledRoute->pattern(), compiledRoute.pattern());
-        EXPECT_EQ(expectedCompiledRoute->pathVariables(), compiledRoute.pathVariables());
+        EXPECT_EQ(expectedCompiledRoute->pattern(), compiledRoute->pattern());
+        EXPECT_EQ(expectedCompiledRoute->pathVariables(), compiledRoute->pathVariables());
     }
 }

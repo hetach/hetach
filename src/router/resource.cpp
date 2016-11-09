@@ -23,7 +23,7 @@
 using namespace std;
 using namespace Hetach::Router;
 
-Resource::Resource(Route route, CompiledRoute compiledRoute, Params *routeParams)
+Resource::Resource(Route *route, CompiledRoute *compiledRoute, Params *routeParams)
 {
     this->m_route = route;
     this->m_compiledRoute = compiledRoute;
@@ -35,12 +35,12 @@ Resource::~Resource()
     delete this->m_routeParams;
 }
 
-Route Resource::route()
+Route* Resource::route()
 {
     return this->m_route;
 }
 
-CompiledRoute Resource::compiledRoute()
+CompiledRoute* Resource::compiledRoute()
 {
     return this->m_compiledRoute;
 }

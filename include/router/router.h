@@ -22,11 +22,11 @@
 #define HETACH_ROUTER_ROUTER_H
 
 #include <string>
-#include <list>
 #include <map>
 
 #include "router/routecompiler.h"
 #include "router/route.h"
+#include "router/compiledroute.h"
 #include "router/resource.h"
 
 namespace Hetach {
@@ -36,11 +36,11 @@ namespace Hetach {
         public:
             Router();
 
-            void addRoute(Route route);
+            void addRoute(Route *route);
             Resource* match(std::string path);
 
         protected:
-            std::list<Route> m_routes;
+            std::map<Route*, CompiledRoute*> m_routes;
             RouteCompiler *m_compiler;
         };
     }

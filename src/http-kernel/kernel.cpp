@@ -47,12 +47,12 @@ Response* Kernel::handle(Request *request)
     try {
         resource = this->m_router->match(request->path());
 
-        map<string, Controller*>::iterator it = this->m_controllers.find("/");
+        map<string, Controller*>::iterator it = this->m_controllers.find(resource->compiledRoute()->rawPath());
 
         if(it != this->m_controllers.end()) {
             Controller *controller = dynamic_cast<Controller*>(it->second);
 
-            controller->handle(request, response, new Hetach::Router::Params());
+            controller->handle(request, response, resource->routeParams());
         }
 
         delete resource;
@@ -72,7 +72,7 @@ Response* Kernel::handle(Request *request)
 
 void Kernel::add(string path, Controller *controller)
 {
-    this->m_router->addRoute(Route(path));
+    this->m_router->addRoute(new Route(path));
 
     this->m_controllers.insert(make_pair(path, controller));
 }

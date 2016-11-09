@@ -23,12 +23,12 @@
 
 TEST_F(ResourceFixture, testGetRoute)
 {
-    EXPECT_EQ(rawPath, resource->route().path());
+    EXPECT_EQ(rawPath, resource->route()->path());
 }
 
 TEST_F(ResourceFixture, testGetCompiledRoute)
 {
-    EXPECT_EQ(pattern, resource->compiledRoute().pattern());
+    EXPECT_EQ(pattern, resource->compiledRoute()->pattern());
 }
 
 TEST_F(ResourceFixture, testGetRouteParams)

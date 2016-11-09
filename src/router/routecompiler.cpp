@@ -31,14 +31,14 @@ RouteCompiler::RouteCompiler()
 
 }
 
-CompiledRoute RouteCompiler::compile(Route route)
+CompiledRoute* RouteCompiler::compile(Route *route)
 {
     vector<string> pathVariables;
 
     string pattern = "^";
 
     smatch res;
-    string s = route.path();
+    string s = route->path();
     regex reg("(?:\\{[a-zA-Z]+\\})");
     string parsed = regex_replace(s, reg, RouteCompiler::paramRegex());
 
@@ -54,5 +54,5 @@ CompiledRoute RouteCompiler::compile(Route route)
 
     pattern.append("$");
 
-    return CompiledRoute(pathVariables, pattern, route.path());
+    return new CompiledRoute(pathVariables, pattern, route->path());
 }

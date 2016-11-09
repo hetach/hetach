@@ -33,16 +33,16 @@ namespace Hetach {
         class Resource
         {
         public:
-            Resource(Route route, CompiledRoute compiledRoute, Params *routeParams);
+            Resource(Route *route, CompiledRoute *compiledRoute, Params *routeParams);
             ~Resource();
 
-            Route route();
-            CompiledRoute compiledRoute();
+            Route* route();
+            CompiledRoute* compiledRoute();
             Params* routeParams();
 
         protected:
-            Route m_route;
-            CompiledRoute m_compiledRoute;
+            Route *m_route;
+            CompiledRoute *m_compiledRoute;
             Params *m_routeParams;
         };
     }

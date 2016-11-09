@@ -33,8 +33,8 @@ public:
     ResourceFixture(): CompiledRouteFixture()
     {
         resource = new Hetach::Router::Resource(
-            Hetach::Router::Route(rawPath),
-            *compiledRoute,
+            new Hetach::Router::Route(rawPath),
+            compiledRoute,
             new Hetach::Router::Params(std::map<std::string, std::string>({std::make_pair("param", "value")}))
         );
     }

@@ -33,9 +33,9 @@ public:
     {
         router = new Hetach::Router::Router();
 
-        router->addRoute(Hetach::Router::Route("/users"));
-        router->addRoute(Hetach::Router::Route("/users/{id}"));
-        router->addRoute(Hetach::Router::Route("/companies/{companyId}/users/{userId}"));
+        router->addRoute(new Hetach::Router::Route("/users"));
+        router->addRoute(new Hetach::Router::Route("/users/{id}"));
+        router->addRoute(new Hetach::Router::Route("/companies/{companyId}/users/{userId}"));
     }
 
     ~RouterFixture()
