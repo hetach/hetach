@@ -2,6 +2,7 @@ FROM gorzechowski/{{image}}
 
 RUN apt-get -y update && apt-get -qy install \
     libfcgi-dev \
+    libevent-dev \
     git
 
 RUN groupadd hetach && \
