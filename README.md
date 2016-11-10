@@ -4,7 +4,15 @@
 
 ## Description
 
-Hetach is a micro-framework written in C++, which goal is to speed up and help writing FastCGI applications.
+Hetach is a micro-framework written in C++, which goal is to provide solution for creating web applications. If Your need is located in one of:
+
+* Running web aplication on inefficient platforms like single-board computers, for example RaspberryPI
+* Expose api-rest or other interface for a library, for example WiringPI
+* Performance is a high priority
+
+then Hetach is for You.
+
+Hetach comes with FastCGI support, so You can easly integrate any web server You like, and with built-in web server - just run Your application with specified listen port and address.
 
 ## Usage
 
