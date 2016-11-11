@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <cstring>
+
 #include "http/request.h"
 
 using namespace std;
@@ -44,6 +46,9 @@ Request* Request::create(FCGX_Request *request)
         FCGX_GetStr(str, len, request->in);
 
         content = string(str);
+        content = content.substr(0, len);
+
+        delete str;
     }
 
     return new Request(method, path, content);
@@ -53,7 +58,21 @@ Request* Request::create(evhttp_request *request)
 {
     int method = Request::methodFromHttpCommand(evhttp_request_get_command(request));
     string path = evhttp_request_get_uri(request);
-    string content = ""; // TODO
+    string content = "";
+
+    evbuffer *requestBuffer = evhttp_request_get_input_buffer(request);
+    size_t len = evbuffer_get_length(requestBuffer);
+
+    if(len > 0) {
+        char *str = new char[len];
+
+        evbuffer_copyout(requestBuffer, str, len);
+
+        content = string(str);
+        content = content.substr(0, len);
+
+        delete str;
+    }
 
     return new Request(method, path, content);
 }

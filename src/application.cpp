@@ -104,7 +104,7 @@ void Application::quit()
 
 void handler(evhttp_request *req, void *)
 {
-    auto *outBuffer = evhttp_request_get_output_buffer(req);
+    evbuffer *outBuffer = evhttp_request_get_output_buffer(req);
 
     if(!outBuffer) {
         return;
@@ -128,7 +128,7 @@ void handler(evhttp_request *req, void *)
         evhttp_add_header(outputHeaders, header.name().data(), header.value().data());
     }
 
-    evbuffer_add_printf(outBuffer, response->content().data());
+    evbuffer_add(outBuffer, response->content().data(), response->content().size());
 
     evhttp_send_reply(req, response->statusCode(), "", outBuffer);
 
