@@ -15,6 +15,7 @@ Following code is a minimal example with one route supporting GET method:
 
 ```cpp
 #include <application.h>
+// #include <fcgiapplication.h> <- if FastCGI context should be used
 #include <http-kernel/controller.h>
 
 using namespace Hetach;
