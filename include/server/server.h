@@ -18,30 +18,30 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_FCGIAPPLICATION_H
-#define HETACH_FCGIAPPLICATION_H
-
-#include "application.h"
-
-class FCGX_Request;
+#ifndef HETACH_SERVER_SERVER_H
+#define HETACH_SERVER_SERVER_H
 
 namespace Hetach {
-    namespace HttpKernel {
-        class Kernel;
+    namespace Http {
+        class Request;
+        class Response;
     }
 
-    class FCGIApplication: public Application
-    {
-    public:
-        FCGIApplication() : Application() {}
-        FCGIApplication(HttpKernel::Kernel *kernel) : Application(kernel) {}
+    namespace Server {
+        class Server
+        {
+        public:
+            virtual void onRequest(Http::Response* (*callback)(Http::Request *request)) {
+                m_onRequest = callback;
+            }
 
-        void boot();
-        void quit();
+            virtual bool listen() = 0;
+            virtual void close() = 0;
 
-    protected:
-        FCGX_Request *m_fcgiRequest;
-    };
+        protected:
+            Http::Response* (*m_onRequest)(Http::Request *request);
+        };
+    }
 }
 
-#endif // HETACH_FCGIAPPLICATION_H
+#endif // HETACH_SERVER_SERVER_H

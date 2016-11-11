@@ -18,46 +18,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_APPLICATION_H
-#define HETACH_APPLICATION_H
+#ifndef HETACH_SERVER_WEBSERVER_H
+#define HETACH_SERVER_WEBSERVER_H
 
 #include <string>
-#include <functional>
+
+#include "server.h"
 
 class evhttp;
 
 namespace Hetach {
-    namespace HttpKernel {
-        class Kernel;
-        class Controller;
+    namespace Http {
+        class Request;
+        class Response;
     }
 
     namespace Server {
-        class Server;
+        class WebServer: public Server
+        {
+        public:
+            WebServer();
+            WebServer(std::string address, int port);
+
+            bool listen();
+            void close();
+
+        protected:
+            std::string m_addres;
+            int m_port;
+
+            evhttp *m_httpd;
+        };
     }
-
-    class Application
-    {
-    public:
-        Application(Server::Server *server);
-        Application(HttpKernel::Kernel *kernel);
-        Application(Server::Server *server, HttpKernel::Kernel *kernel);
-
-        void route(std::string route, HttpKernel::Controller *controller);
-
-        virtual void boot();
-        virtual void quit();
-
-    protected:
-        Server::Server *m_server;
-        HttpKernel::Kernel *m_kernel;
-
-    private:
-        std::string m_listenAddres;
-        int m_listenPort;
-
-        evhttp *m_httpd;
-    };
 }
 
-#endif // HETACH_APPLICATION_H
+#endif // HETACH_SERVER_WEBSERVER_H

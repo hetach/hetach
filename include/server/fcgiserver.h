@@ -18,46 +18,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_APPLICATION_H
-#define HETACH_APPLICATION_H
+#ifndef HETACH_SERVER_FCGISERVER_H
+#define HETACH_SERVER_FCGISERVER_H
 
-#include <string>
-#include <functional>
+#include "server/server.h"
 
-class evhttp;
+class FCGX_Request;
 
 namespace Hetach {
-    namespace HttpKernel {
-        class Kernel;
-        class Controller;
-    }
-
     namespace Server {
-        class Server;
+        class FCGIServer: public Server
+        {
+        public:
+            FCGIServer();
+
+            bool listen();
+            void close();
+
+        protected:
+            FCGX_Request *m_fcgiRequest;
+        };
     }
-
-    class Application
-    {
-    public:
-        Application(Server::Server *server);
-        Application(HttpKernel::Kernel *kernel);
-        Application(Server::Server *server, HttpKernel::Kernel *kernel);
-
-        void route(std::string route, HttpKernel::Controller *controller);
-
-        virtual void boot();
-        virtual void quit();
-
-    protected:
-        Server::Server *m_server;
-        HttpKernel::Kernel *m_kernel;
-
-    private:
-        std::string m_listenAddres;
-        int m_listenPort;
-
-        evhttp *m_httpd;
-    };
 }
 
-#endif // HETACH_APPLICATION_H
+#endif // HETACH_SERVER_FCGISERVER_H

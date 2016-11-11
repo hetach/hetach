@@ -18,16 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <memory>
-#include <cstdint>
-#include <iostream>
-#include <evhttp.h>
-
 #include "http-kernel/kernel.h"
 #include "http-kernel/controller.h"
 #include "http/request.h"
 #include "http/response.h"
-#include "http/header.h"
+#include "server/server.h"
 
 #include "application.h"
 
@@ -36,35 +31,26 @@ using namespace Hetach;
 using namespace Hetach::Http;
 using namespace Hetach::HttpKernel;
 
-void handler(evhttp_request *req, void *);
-
 namespace ApplicationPrivate {
     static Kernel *kernel;
+
+    Response* onRequest(Request *request);
 }
 
-Application::Application()
+Application::Application(Server::Server *server)
 {
+    this->m_server = server;
     this->m_kernel = new HttpKernel::Kernel();
-    this->m_listenAddres = "127.0.0.1";
-    this->m_listenPort = 5555;
-}
-
-Application::Application(string listenAddress, int listenPort)
-{
-    this->m_kernel = new HttpKernel::Kernel();
-    this->m_listenAddres = listenAddress;
-    this->m_listenPort = listenPort;
-}
-
-Application::Application(string listenAddress, int listenPort, HttpKernel::Kernel *kernel)
-{
-    this->m_listenAddres = listenAddress;
-    this->m_listenPort = listenPort;
-    this->m_kernel = kernel;
 }
 
 Application::Application(HttpKernel::Kernel *kernel)
 {
+    this->m_kernel = kernel;
+}
+
+Application::Application(Server::Server *server, HttpKernel::Kernel *kernel)
+{
+    this->m_server = server;
     this->m_kernel = kernel;
 }
 
@@ -77,61 +63,17 @@ void Application::boot()
 {
     ApplicationPrivate::kernel = this->m_kernel;
 
-    if(!event_init()) {
-        cerr << "Failed to init libevent" << endl;
-        return;
-    }
+    this->m_server->onRequest(ApplicationPrivate::onRequest);
 
-    this->m_httpd = evhttp_start(this->m_listenAddres.data(), this->m_listenPort);
-
-    if(!this->m_httpd) {
-        cerr << "Failed to init http server" << endl;
-        return;
-    }
-
-    evhttp_set_gencb(this->m_httpd, handler, nullptr);
-
-    if(event_dispatch() == -1) {
-        cerr << "Failed to run message loop" << endl;
-        return;
-    }
+    this->m_server->listen();
 }
 
 void Application::quit()
 {
-    evhttp_free(this->m_httpd);
+    this->m_server->close();
 }
 
-void handler(evhttp_request *req, void *)
+Response* ApplicationPrivate::onRequest(Request *request)
 {
-    evbuffer *outBuffer = evhttp_request_get_output_buffer(req);
-
-    if(!outBuffer) {
-        return;
-    }
-
-    Request *request = Request::create(req);
-    Response *response = ApplicationPrivate::kernel->handle(request);
-
-    evkeyvalq *outputHeaders = evhttp_request_get_output_headers(req);
-
-    string version = HETACH_VERSION;
-    response->addHeader(Header("Server", "hetach/" + version));
-
-    response->addHeader(Header("Connection", "close"));
-
-    vector<Header> headers = response->headers();
-
-    for(vector<Header>::iterator it = headers.begin(); it != headers.end(); ++it) {
-        Header header = static_cast<Header>(*it);
-
-        evhttp_add_header(outputHeaders, header.name().data(), header.value().data());
-    }
-
-    evbuffer_add(outBuffer, response->content().data(), response->content().size());
-
-    evhttp_send_reply(req, response->statusCode(), "", outBuffer);
-
-    delete request;
-    delete response;
+    return ApplicationPrivate::kernel->handle(request);
 }

@@ -62,7 +62,7 @@ Resource* Router::match(string path)
         CompiledRoute *compiled = it->second;
         map<string, string> routeParams;
 
-        if(path == route->path()->data()) {
+        if(path.data() == route->path()->data()) {
             return new Resource(route, compiled, new Params(routeParams));
         }
 

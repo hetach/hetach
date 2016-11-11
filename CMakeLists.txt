@@ -26,7 +26,6 @@ set(
     sources
 
     src/application.cpp
-    src/fcgiapplication.cpp
 
     src/api-rest/apirest.cpp
     src/api-rest/entity.cpp
@@ -48,8 +47,10 @@ set(
     src/router/routecompiler.cpp
     src/router/router.cpp
 
+    src/server/fcgiserver.cpp
+    src/server/webserver.cpp
+
     include/application.h
-    include/fcgiapplication.h
 
     include/api-rest/apirest.h
     include/api-rest/entity.h
@@ -66,6 +67,10 @@ set(
     include/http-kernel/headernotfoundexception.h
     include/http-kernel/methodnotimplementedexception.h
     include/http-kernel/methodunknownexception.h
+
+    include/server/fcgiserver.h
+    include/server/server.h
+    include/server/webserver.h
 
     include/router/compiledroute.h
     include/router/params.h

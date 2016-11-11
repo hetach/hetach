@@ -18,34 +18,36 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <list>
+#include <vector>
 #include <unistd.h>
+#include <fcgio.h>
 
-#include "fcgiapplication.h"
+#include "server/fcgiserver.h"
 
 #include "http/header.h"
 #include "http/request.h"
 #include "http/response.h"
-#include "http-kernel/kernel.h"
 
 using namespace std;
-using namespace Hetach;
-using namespace Http;
+using namespace Hetach::Http;
+using namespace Hetach::Server;
 
-void FCGIApplication::boot()
+FCGIServer::FCGIServer()
+{
+
+}
+
+bool FCGIServer::listen()
 {
     this->m_fcgiRequest = new FCGX_Request();
 
     FCGX_Init();
     FCGX_InitRequest(this->m_fcgiRequest, 0, 0);
 
-    Request *request;
-    Response *response;
-
     while(FCGX_Accept_r(this->m_fcgiRequest) == 0) {
-        request = Request::create(this->m_fcgiRequest);
+        Request *request = Request::create(this->m_fcgiRequest);
 
-        response = this->m_kernel->handle(request);
+        Response *response = this->m_onRequest(request);
 
         string status = Header("Status", response->statusCode()).toString() + "\r\n";
 
@@ -70,7 +72,7 @@ void FCGIApplication::boot()
     }
 }
 
-void FCGIApplication::quit()
+void FCGIServer::close()
 {
-    close(this->m_fcgiRequest->listen_sock);
+    ::close(this->m_fcgiRequest->listen_sock);
 }
