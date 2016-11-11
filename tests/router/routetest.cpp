@@ -27,7 +27,7 @@ using namespace Hetach::Router;
 
 TEST(route_test, testGetPath)
 {
-    string path = "/some/path/{param}";
+    string *path = new string("/some/path/{param}");
 
     Route route(path);
 

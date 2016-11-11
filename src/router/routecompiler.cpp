@@ -19,6 +19,7 @@
  */
 
 #include <regex>
+#include <sstream>
 #include <iterator>
 
 #include "router/routecompiler.h"
@@ -33,26 +34,31 @@ RouteCompiler::RouteCompiler()
 
 CompiledRoute* RouteCompiler::compile(Route *route)
 {
-    vector<string> pathVariables;
+    vector<string> *pathVariables = new vector<string>();
 
-    string pattern = "^";
+    vector<string> *parts = new vector<string>();
 
-    smatch res;
-    string s = route->path();
-    regex reg("(?:\\{[a-zA-Z]+\\})");
-    string parsed = regex_replace(s, reg, RouteCompiler::paramRegex());
+    stringstream ss;
+    ss.str(route->path()->data());
 
-    while(regex_search(s, res, reg)) {
-        for(string match:res) {
-            pathVariables.push_back(match.substr(1, match.size() - 2));
+    string item;
+
+    char first, last;
+
+    while(getline(ss, item, '/')) {
+        if(item.size() == 0) {
+            continue;
         }
 
-        s = res.suffix().str();
+        parts->push_back(item);
+
+        first = item.front();
+        last = item.back();
+
+        if(first == '{' && last == '}') {
+            pathVariables->push_back(item.substr(1, item.size() - 2));
+        }
     }
 
-    pattern.append(parsed);
-
-    pattern.append("$");
-
-    return new CompiledRoute(pathVariables, pattern, route->path());
+    return new CompiledRoute(pathVariables, parts, route->path());
 }

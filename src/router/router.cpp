@@ -19,6 +19,9 @@
  */
 
 #include <regex>
+#include <sstream>
+#include <vector>
+#include <iostream>
 
 #include "router/router.h"
 #include "router/params.h"
@@ -39,28 +42,56 @@ void Router::addRoute(Route *route)
 
 Resource* Router::match(string path)
 {
+    vector<string> parts;
+
+    stringstream ss;
+    ss.str(path);
+
+    string item;
+
+    while(getline(ss, item, '/')) {
+        if(item.size() == 0) {
+            continue;
+        }
+
+        parts.push_back(item);
+    }
+
     for(map<Route*, CompiledRoute*>::iterator it = this->m_routes.begin(); it != this->m_routes.end(); ++it) {
         Route *route = it->first;
         CompiledRoute *compiled = it->second;
         map<string, string> routeParams;
 
-        if(path == route->path()) {
+        if(path == route->path()->data()) {
             return new Resource(route, compiled, new Params(routeParams));
         }
 
-        smatch sm;
-        regex reg(compiled->pattern());
-        regex_match(path, sm, reg);
-
-        if(sm.size() < 1) {
+        if(parts.size() != compiled->parts()->size()) {
             continue;
         }
 
-        for(int i = 1; i < sm.size(); i++) {
-            string name = compiled->pathVariables()[i - 1];
-            string value = sm[i];
+        string pathPart, routePart;
+        char first, last;
 
-            routeParams.insert(make_pair(name, value));
+        for(int i = 0; i < parts.size(); i++) {
+            pathPart = parts.at(i);
+            routePart = compiled->parts()->at(i);
+
+            first = routePart.front();
+            last = routePart.back();
+
+            if(pathPart != routePart && first != '{' && last != '}') {
+                routeParams.clear();
+                break;
+            }
+
+            if(first == '{' && last == '}') {
+                routeParams.insert(make_pair(routePart.substr(1, routePart.size() - 2), pathPart));
+            }
+        }
+
+        if(routeParams.size() == 0) {
+            continue;
         }
 
         return new Resource(route, compiled, new Params(routeParams));

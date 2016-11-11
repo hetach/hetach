@@ -35,34 +35,38 @@ public:
         routeCompiler = new Hetach::Router::RouteCompiler();
         
         routes.insert(std::make_pair(
-            new Hetach::Router::Route("/some/path"),
-            new Hetach::Router::CompiledRoute(std::vector<std::string>(), "^/some/path$", "/some/path")
+            new Hetach::Router::Route(new std::string("/some/path")),
+            new Hetach::Router::CompiledRoute(
+                new std::vector<std::string>(),
+                new std::vector<std::string>({"some", "path"}),
+                new std::string("/some/path")
+            )
         ));
         
         routes.insert(std::make_pair(
-            new Hetach::Router::Route("/some/path/{name}"),
+            new Hetach::Router::Route(new std::string("/some/path/{name}")),
             new Hetach::Router::CompiledRoute(
-              std::vector<std::string>({"name"}),
-              "^/some/path/" + Hetach::Router::RouteCompiler::paramRegex() + "$",
-              "/some/path/{name}"
+                new std::vector<std::string>({"name"}),
+                new std::vector<std::string>({"some", "path", "{name}"}),
+                new std::string("/some/path/{name}")
             )
         ));
 
         routes.insert(std::make_pair(
-            new Hetach::Router::Route("/some/path/{name}/{param}"),
+            new Hetach::Router::Route(new std::string("/some/path/{name}/{param}")),
             new Hetach::Router::CompiledRoute(
-              std::vector<std::string>({"name", "param"}),
-              "^/some/path/" + Hetach::Router::RouteCompiler::paramRegex() + "/" + Hetach::Router::RouteCompiler::paramRegex() + "$",
-              "/some/path/{name}/{param}"
+                new std::vector<std::string>({"name", "param"}),
+                new std::vector<std::string>({"some", "path", "{name}", "{param}"}),
+                new std::string("/some/path/{name}/{param}")
             )
         ));
 
         routes.insert(std::make_pair(
-            new Hetach::Router::Route("/some/{name}/path/{param}"),
+            new Hetach::Router::Route(new std::string("/some/{name}/path/{param}")),
             new Hetach::Router::CompiledRoute(
-              std::vector<std::string>({"name", "param"}),
-              "^/some/" + Hetach::Router::RouteCompiler::paramRegex() + "/path/" + Hetach::Router::RouteCompiler::paramRegex() + "$",
-              "/some/{name}/path/{param}"
+                new std::vector<std::string>({"name", "param"}),
+                new std::vector<std::string>({"some", "{name}", "path", "{param}"}),
+                new std::string("/some/{name}/path/{param}")
             )
         ));
     }

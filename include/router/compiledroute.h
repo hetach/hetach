@@ -30,16 +30,16 @@ namespace Hetach {
         {
         public:
             CompiledRoute() {}
-            CompiledRoute(std::vector<std::string> pathVariables, std::string pattern, std::string rawPath);
+            CompiledRoute(std::vector<std::string> *pathVariables, std::vector<std::string> *parts, std::string *rawPath);
 
-            std::vector<std::string> pathVariables();
-            std::string pattern();
-            std::string rawPath();
+            std::vector<std::string>* pathVariables();
+            std::vector<std::string>* parts();
+            std::string* rawPath();
 
         protected:
-            std::vector<std::string> m_pathVariables;
-            std::string m_pattern;
-            std::string m_rawPath;
+            std::vector<std::string> *m_pathVariables;
+            std::vector<std::string> *m_parts;
+            std::string *m_rawPath;
         };
     }
 }

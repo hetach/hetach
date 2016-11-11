@@ -30,19 +30,19 @@ class CompiledRouteFixture: public testing::Test
 {
 public:
     Hetach::Router::CompiledRoute *compiledRoute;
-    std::string pattern;
-    std::string rawPath;
-    std::vector<std::string> pathVariables;
+    std::vector<std::string> *parts;
+    std::string *rawPath;
+    std::vector<std::string> *pathVariables;
 
     CompiledRouteFixture()
     {
-        pattern = "/some/route/(.*)";
-        rawPath = "/some/route/{param}";
-        pathVariables = {
+        parts = new std::vector<std::string>({"some", "route", "{param}"});
+        rawPath = new std::string("/some/route/{param}");
+        pathVariables = new std::vector<std::string>({
             "name"
-        };
+        });
 
-        compiledRoute = new Hetach::Router::CompiledRoute(pathVariables, pattern, rawPath);
+        compiledRoute = new Hetach::Router::CompiledRoute(pathVariables, parts, rawPath);
     }
 
     ~CompiledRouteFixture()

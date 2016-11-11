@@ -70,7 +70,7 @@ Application::Application(HttpKernel::Kernel *kernel)
 
 void Application::route(string route, HttpKernel::Controller *controller)
 {
-    this->m_kernel->add(route, controller);
+    this->m_kernel->add(&route, controller);
 }
 
 void Application::boot()
@@ -115,18 +115,14 @@ void handler(evhttp_request *req, void *)
 
     evkeyvalq *outputHeaders = evhttp_request_get_output_headers(req);
 
-#ifdef HETACH_VERSION
     string version = HETACH_VERSION;
     response->addHeader(Header("Server", "hetach/" + version));
-#else
-    response->addHeader(Header("Server", "hetach"));
-#endif
 
     response->addHeader(Header("Connection", "close"));
 
-    list<Header> headers = response->headers();
+    vector<Header> headers = response->headers();
 
-    for(list<Header>::iterator it = headers.begin(); it != headers.end(); ++it) {
+    for(vector<Header>::iterator it = headers.begin(); it != headers.end(); ++it) {
         Header header = static_cast<Header>(*it);
 
         evhttp_add_header(outputHeaders, header.name().data(), header.value().data());
@@ -135,4 +131,7 @@ void handler(evhttp_request *req, void *)
     evbuffer_add_printf(outBuffer, response->content().data());
 
     evhttp_send_reply(req, response->statusCode(), "", outBuffer);
+
+    delete request;
+    delete response;
 }

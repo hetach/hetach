@@ -31,8 +31,10 @@ Header::Header(string name, string value)
 
 Header::Header(string name, int value)
 {
+    string stringValue = to_string(value);
+
     this->m_name = name;
-    this->m_value = to_string(value);
+    this->m_value = stringValue;
 }
 
 string Header::name()

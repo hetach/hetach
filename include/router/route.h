@@ -29,12 +29,12 @@ namespace Hetach {
         {
         public:
             Route() {}
-            Route(std::string path);
+            Route(std::string *path);
 
-            std::string path();
+            std::string* path();
 
         protected:
-            std::string m_path;
+            std::string *m_path;
         };
     }
 }

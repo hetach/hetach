@@ -47,7 +47,7 @@ Response* Kernel::handle(Request *request)
     try {
         resource = this->m_router->match(request->path());
 
-        map<string, Controller*>::iterator it = this->m_controllers.find(resource->compiledRoute()->rawPath());
+        map<string*, Controller*>::iterator it = this->m_controllers.find(resource->compiledRoute()->rawPath());
 
         if(it != this->m_controllers.end()) {
             Controller *controller = dynamic_cast<Controller*>(it->second);
@@ -70,7 +70,7 @@ Response* Kernel::handle(Request *request)
     return response;
 }
 
-void Kernel::add(string path, Controller *controller)
+void Kernel::add(string *path, Controller *controller)
 {
     this->m_router->addRoute(new Route(path));
 

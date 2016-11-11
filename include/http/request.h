@@ -21,7 +21,6 @@
 #ifndef HETACH_HTTP_REQUEST_H
 #define HETACH_HTTP_REQUEST_H
 
-#include <list>
 #include <string>
 #include <fcgio.h>
 #include <evhttp.h>

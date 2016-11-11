@@ -48,14 +48,14 @@ string Response::content()
     return this->m_content;
 }
 
-std::list<Header> Response::headers()
+std::vector<Header> Response::headers()
 {
     return this->m_headers;
 }
 
 Header Response::header(string name)
 {
-    for(list<Header>::iterator it = this->m_headers.begin(); it != this->m_headers.end(); ++it) {
+    for(vector<Header>::iterator it = this->m_headers.begin(); it != this->m_headers.end(); ++it) {
         Header header = static_cast<Header>(*it);
 
         if(header.name() == name) {
@@ -68,7 +68,7 @@ Header Response::header(string name)
 
 void Response::addHeader(Header newHeader)
 {
-    for(list<Header>::iterator it = this->m_headers.begin(); it != this->m_headers.end(); ++it) {
+    for(vector<Header>::iterator it = this->m_headers.begin(); it != this->m_headers.end(); ++it) {
         Header header = static_cast<Header>(*it);
 
         if(header.name() == newHeader.name()) {

@@ -28,7 +28,7 @@ TEST_F(ResourceFixture, testGetRoute)
 
 TEST_F(ResourceFixture, testGetCompiledRoute)
 {
-    EXPECT_EQ(pattern, resource->compiledRoute()->pattern());
+    EXPECT_EQ(compiledRoute, resource->compiledRoute());
 }
 
 TEST_F(ResourceFixture, testGetRouteParams)

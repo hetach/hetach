@@ -28,7 +28,7 @@ using namespace Hetach::Http;
 
 TEST_F(ResponseFixture, testDefaultHeaders)
 {
-    list<Header> headers = response->headers();
+    vector<Header> headers = response->headers();
 
     Header first = static_cast<Header>(headers.front());
 

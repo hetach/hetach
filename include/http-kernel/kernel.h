@@ -44,10 +44,10 @@ namespace Hetach {
 
             Http::Response* handle(Http::Request *request);
 
-            void add(std::string path, Controller *controller);
+            void add(std::string *path, Controller *controller);
 
         protected:
-            std::map<std::string, Controller*> m_controllers;
+            std::map<std::string*, Controller*> m_controllers;
             Hetach::Router::Router *m_router;
         };
     }

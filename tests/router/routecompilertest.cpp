@@ -30,7 +30,7 @@ TEST_F(RouteCompilerFixture, testCompileRoute)
         CompiledRoute *expectedCompiledRoute = dynamic_cast<CompiledRoute*>(it->second);
         CompiledRoute *compiledRoute = routeCompiler->compile(route);
 
-        EXPECT_EQ(expectedCompiledRoute->pattern(), compiledRoute->pattern());
-        EXPECT_EQ(expectedCompiledRoute->pathVariables(), compiledRoute->pathVariables());
+        EXPECT_EQ(*expectedCompiledRoute->parts(), *compiledRoute->parts());
+        EXPECT_EQ(*expectedCompiledRoute->pathVariables(), *compiledRoute->pathVariables());
     }
 }

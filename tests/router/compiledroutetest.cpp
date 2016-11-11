@@ -24,15 +24,15 @@ using namespace Hetach::Router;
 
 TEST_F(CompiledRouteFixture, testGetPathVariable)
 {
-    EXPECT_EQ(pathVariables, compiledRoute->pathVariables());
+    EXPECT_EQ(*pathVariables, *compiledRoute->pathVariables());
 }
 
-TEST_F(CompiledRouteFixture, testGetPattern)
+TEST_F(CompiledRouteFixture, testGetParts)
 {
-    EXPECT_EQ(pattern, compiledRoute->pattern());
+    EXPECT_EQ(*parts, *compiledRoute->parts());
 }
 
 TEST_F(CompiledRouteFixture, testGetRawPath)
 {
-    EXPECT_EQ(rawPath, compiledRoute->rawPath());
+    EXPECT_EQ(*rawPath, *compiledRoute->rawPath());
 }

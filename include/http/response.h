@@ -22,7 +22,7 @@
 #define HETACH_HTTP_RESPONSE_H
 
 #include <string>
-#include <list>
+#include <vector>
 
 namespace Hetach {
     namespace Http {
@@ -36,18 +36,16 @@ namespace Hetach {
             void setContent(std::string content);
             std::string content();
 
-            std::list<Header> headers();
+            std::vector<Header> headers();
             Header header(std::string name);
             void addHeader(Header newHeader);
-            void addHeader(std::string name, std::string value);
-            void addHeader(std::string name, int value);
 
             void setStatusCode(int code);
             int statusCode();
 
         protected:
             std::string m_content;
-            std::list<Header> m_headers;
+            std::vector<Header> m_headers;
             int m_statusCode;
 
             void addDefaultHeaders();

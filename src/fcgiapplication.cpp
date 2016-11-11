@@ -31,9 +31,9 @@ void FCGIApplication::boot()
 
         FCGX_PutStr(status.data(), status.size(), this->m_fcgiRequest->out);
 
-        list<Header> headers = response->headers();
+        vector<Header> headers = response->headers();
 
-        for(list<Header>::iterator it = headers.begin(); it != headers.end(); ++it) {
+        for(vector<Header>::iterator it = headers.begin(); it != headers.end(); ++it) {
             Header header = static_cast<Header>(*it);
 
             string data = header.toString() + "\r\n";
