@@ -36,7 +36,26 @@ using namespace Hetach::Router;
 
 Kernel::Kernel()
 {
+    this->m_controllerResolver = new ControllerResolver();
     this->m_router = new ::Router();
+}
+
+Kernel::Kernel(ControllerResolver *controllerResolver)
+{
+    this->m_controllerResolver = controllerResolver;
+    this->m_router = new ::Router();
+}
+
+Kernel::Kernel(Router::Router *router)
+{
+    this->m_controllerResolver = new ControllerResolver();
+    this->m_router = router;
+}
+
+Kernel::Kernel(ControllerResolver *controllerResolver, Router::Router *router)
+{
+    this->m_controllerResolver = controllerResolver;
+    this->m_router = router;
 }
 
 Response* Kernel::handle(Request *request)
@@ -47,11 +66,9 @@ Response* Kernel::handle(Request *request)
     try {
         resource = this->m_router->match(request->path());
 
-        map<string*, Controller*>::iterator it = this->m_controllers.find(resource->compiledRoute()->rawPath());
+        Controller *controller = this->m_controllerResolver->resolve(resource->compiledRoute()->rawPath());
 
-        if(it != this->m_controllers.end()) {
-            Controller *controller = dynamic_cast<Controller*>(it->second);
-
+        if(controller) {
             controller->handle(request, response, resource->routeParams());
         }
 
@@ -70,9 +87,8 @@ Response* Kernel::handle(Request *request)
     return response;
 }
 
-void Kernel::add(string *path, Controller *controller)
+void Kernel::add(string path, Controller *controller)
 {
     this->m_router->addRoute(new Route(path));
-
-    this->m_controllers.insert(make_pair(path, controller));
+    this->m_controllerResolver->addController(path, controller);
 }

@@ -31,13 +31,13 @@ class CompiledRouteFixture: public testing::Test
 public:
     Hetach::Router::CompiledRoute *compiledRoute;
     std::vector<std::string> *parts;
-    std::string *rawPath;
+    std::string rawPath;
     std::vector<std::string> *pathVariables;
 
     CompiledRouteFixture()
     {
         parts = new std::vector<std::string>({"some", "route", "{param}"});
-        rawPath = new std::string("/some/route/{param}");
+        rawPath = "/some/route/{param}";
         pathVariables = new std::vector<std::string>({
             "name"
         });

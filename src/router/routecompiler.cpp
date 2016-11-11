@@ -39,7 +39,7 @@ CompiledRoute* RouteCompiler::compile(Route *route)
     vector<string> *parts = new vector<string>();
 
     stringstream ss;
-    ss.str(route->path()->data());
+    ss.str(route->path());
 
     string item;
 

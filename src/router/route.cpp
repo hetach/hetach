@@ -23,12 +23,12 @@
 using namespace std;
 using namespace Hetach::Router;
 
-Route::Route(string *path)
+Route::Route(string path)
 {
     this->m_path = path;
 }
 
-string* Route::path()
+string Route::path()
 {
     return this->m_path;
 }

@@ -21,10 +21,8 @@
 #ifndef HETACH_HTTPKERNEL_KERNEL_H
 #define HETACH_HTTPKERNEL_KERNEL_H
 
-#include <map>
-#include <fcgio.h>
-
 #include "http-kernel/controller.h"
+#include "http-kernel/controllerresolver.h"
 
 namespace Hetach {
     namespace Router {
@@ -41,14 +39,17 @@ namespace Hetach {
         {
         public:
             Kernel();
+            Kernel(ControllerResolver *controllerResolver);
+            Kernel(Router::Router *router);
+            Kernel(ControllerResolver *controllerResolver, Router::Router *router);
 
-            Http::Response* handle(Http::Request *request);
+            virtual Http::Response* handle(Http::Request *request);
 
-            void add(std::string *path, Controller *controller);
+            void add(std::string path, Controller *controller);
 
         protected:
-            std::map<std::string*, Controller*> m_controllers;
-            Hetach::Router::Router *m_router;
+            ControllerResolver *m_controllerResolver;
+            Router::Router *m_router;
         };
     }
 }

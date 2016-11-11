@@ -37,7 +37,7 @@ namespace Hetach {
             Router();
 
             void addRoute(Route *route);
-            Resource* match(std::string path);
+            virtual Resource* match(std::string path);
 
         protected:
             std::map<Route*, CompiledRoute*> m_routes;

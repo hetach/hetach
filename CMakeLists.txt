@@ -38,6 +38,7 @@ set(
     src/http/response.cpp
 
     src/http-kernel/controller.cpp
+    src/http-kernel/controllerresolver.cpp
     src/http-kernel/kernel.cpp
 
     src/router/compiledroute.cpp
@@ -63,6 +64,7 @@ set(
     include/http/response.h
 
     include/http-kernel/controller.h
+    include/http-kernel/controllerresolver.h
     include/http-kernel/kernel.h
     include/http-kernel/headernotfoundexception.h
     include/http-kernel/methodnotimplementedexception.h

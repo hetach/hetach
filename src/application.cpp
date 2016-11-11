@@ -56,7 +56,7 @@ Application::Application(Server::Server *server, HttpKernel::Kernel *kernel)
 
 void Application::route(string route, HttpKernel::Controller *controller)
 {
-    this->m_kernel->add(&route, controller);
+    this->m_kernel->add(route, controller);
 }
 
 void Application::boot()

@@ -18,30 +18,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef ROUTER_FIXTURES_ROUTERFIXTURE_H
-#define ROUTER_FIXTURES_ROUTERFIXTURE_H
+#ifndef HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H
+#define HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H
 
-#include "gtest/gtest.h"
-#include "router/router.h"
+#include <string>
 
-class RouterFixture: public testing::Test
-{
-public:
-    Hetach::Router::Router *router;
+#include "http-kernel/controller.h"
 
-    RouterFixture()
-    {
-        router = new Hetach::Router::Router();
+namespace Hetach {
+    namespace HttpKernel {
+        class ControllerResolver
+        {
+        public:
+            ControllerResolver();
 
-        router->addRoute(new Hetach::Router::Route("/users"));
-        router->addRoute(new Hetach::Router::Route("/users/{id}"));
-        router->addRoute(new Hetach::Router::Route("/companies/{companyId}/users/{userId}"));
+            void addController(std::string path, Controller *controller);
+
+            virtual Controller* resolve(std::string path);
+
+        protected:
+            std::map<std::string, Controller*> m_controllers;
+        };
     }
+}
 
-    ~RouterFixture()
-    {
-        delete router;
-    }
-};
-
-#endif // ROUTER_FIXTURES_ROUTERFIXTURE_H
+#endif // HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H

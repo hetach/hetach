@@ -34,5 +34,5 @@ TEST_F(CompiledRouteFixture, testGetParts)
 
 TEST_F(CompiledRouteFixture, testGetRawPath)
 {
-    EXPECT_EQ(*rawPath, *compiledRoute->rawPath());
+    EXPECT_EQ(rawPath, compiledRoute->rawPath());
 }
