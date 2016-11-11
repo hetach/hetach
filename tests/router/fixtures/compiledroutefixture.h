@@ -25,18 +25,23 @@
 
 #include "gtest/gtest.h"
 #include "router/compiledroute.h"
+#include "router/routepart.h"
 
 class CompiledRouteFixture: public testing::Test
 {
 public:
     Hetach::Router::CompiledRoute *compiledRoute;
-    std::vector<std::string> *parts;
+    std::vector<Hetach::Router::RoutePart*> *parts;
     std::string rawPath;
     std::vector<std::string> *pathVariables;
 
     CompiledRouteFixture()
     {
-        parts = new std::vector<std::string>({"some", "route", "{param}"});
+        parts = new std::vector<Hetach::Router::RoutePart*>({
+            Hetach::Router::RoutePart::createFromString("some"),
+            Hetach::Router::RoutePart::createFromString("route"),
+            Hetach::Router::RoutePart::createFromString("{param}")
+        });
         rawPath = "/some/route/{param}";
         pathVariables = new std::vector<std::string>({
             "name"

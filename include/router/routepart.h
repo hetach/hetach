@@ -18,32 +18,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_ROUTER_COMPILEDROUTE_H
-#define HETACH_ROUTER_COMPILEDROUTE_H
+#ifndef HETACH_ROUTER_ROUTEPART_H
+#define HETACH_ROUTER_ROUTEPART_H
 
 #include <string>
-#include <vector>
-
-#include "router/routepart.h"
 
 namespace Hetach {
     namespace Router {
-        class CompiledRoute
+        class RoutePart
         {
         public:
-            CompiledRoute() {}
-            CompiledRoute(std::vector<std::string> *pathVariables, std::vector<RoutePart*> *parts, std::string rawPath);
+            RoutePart();
+            RoutePart(std::string name, bool isParameter);
 
-            std::vector<std::string>* pathVariables();
-            std::vector<RoutePart*>* parts();
-            std::string rawPath();
+            static RoutePart* createFromString(std::string data);
+
+            std::string name();
+            bool isParameter();
 
         protected:
-            std::vector<std::string> *m_pathVariables;
-            std::vector<RoutePart*> *m_parts;
-            std::string m_rawPath;
+            std::string m_name;
+            bool m_isParameter;
         };
     }
 }
 
-#endif // HETACH_ROUTER_COMPILEDROUTE_H
+#endif // HETACH_ROUTER_ROUTEPART_H

@@ -46,6 +46,7 @@ set(
     src/router/resource.cpp
     src/router/route.cpp
     src/router/routecompiler.cpp
+    src/router/routepart.cpp
     src/router/router.cpp
 
     src/server/fcgiserver.cpp
@@ -81,6 +82,7 @@ set(
     include/router/resourcenotfoundexception.h
     include/router/route.h
     include/router/routecompiler.h
+    include/router/routepart.h
     include/router/router.h
 
 )

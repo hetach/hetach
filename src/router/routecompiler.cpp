@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <regex>
-#include <sstream>
-#include <iterator>
+#include <string>
+#include <vector>
 
 #include "router/routecompiler.h"
+#include "router/routepart.h"
 
 using namespace std;
 using namespace Hetach::Router;
@@ -36,27 +36,17 @@ CompiledRoute* RouteCompiler::compile(Route *route)
 {
     vector<string> *pathVariables = new vector<string>();
 
-    vector<string> *parts = new vector<string>();
+    vector<RoutePart*> *parts = new vector<RoutePart*>();
 
-    stringstream ss;
-    ss.str(route->path());
+    for(int i = 0; i < route->parts().size(); i++) {
+        RoutePart routePart = route->parts().at(i);
 
-    string item;
+        RoutePart *part = new RoutePart(routePart.name(), routePart.isParameter());
 
-    char first, last;
+        parts->push_back(part);
 
-    while(getline(ss, item, '/')) {
-        if(item.size() == 0) {
-            continue;
-        }
-
-        parts->push_back(item);
-
-        first = item.front();
-        last = item.back();
-
-        if(first == '{' && last == '}') {
-            pathVariables->push_back(item.substr(1, item.size() - 2));
+        if(part->isParameter()) {
+            pathVariables->push_back(part->name());
         }
     }
 

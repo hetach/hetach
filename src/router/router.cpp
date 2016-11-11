@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <regex>
-#include <sstream>
 #include <vector>
 #include <iostream>
 
@@ -42,20 +40,9 @@ void Router::addRoute(Route *route)
 
 Resource* Router::match(string path)
 {
-    vector<string> parts;
+    Route requestRoute(path);
 
-    stringstream ss;
-    ss.str(path);
-
-    string item;
-
-    while(getline(ss, item, '/')) {
-        if(item.size() == 0) {
-            continue;
-        }
-
-        parts.push_back(item);
-    }
+    vector<RoutePart> requestRouteParts = requestRoute.parts();
 
     for(map<Route*, CompiledRoute*>::iterator it = this->m_routes.begin(); it != this->m_routes.end(); ++it) {
         Route *route = it->first;
@@ -66,27 +53,23 @@ Resource* Router::match(string path)
             return new Resource(route, compiled, new Params(routeParams));
         }
 
-        if(parts.size() != compiled->parts()->size()) {
+        if(requestRouteParts.size() != compiled->parts()->size()) {
             continue;
         }
 
-        string pathPart, routePart;
-        char first, last;
+        RoutePart *routePart;
 
-        for(int i = 0; i < parts.size(); i++) {
-            pathPart = parts.at(i);
+        for(int i = 0; i < requestRouteParts.size(); i++) {
+            RoutePart pathPart = requestRouteParts.at(i);
             routePart = compiled->parts()->at(i);
 
-            first = routePart.front();
-            last = routePart.back();
-
-            if(pathPart != routePart && first != '{' && last != '}') {
+            if(pathPart.name() != routePart->name() && !routePart->isParameter()) {
                 routeParams.clear();
                 break;
             }
 
-            if(first == '{' && last == '}') {
-                routeParams.insert(make_pair(routePart.substr(1, routePart.size() - 2), pathPart));
+            if(routePart->isParameter()) {
+                routeParams.insert(make_pair(routePart->name(), pathPart.name()));
             }
         }
 

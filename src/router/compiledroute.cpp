@@ -23,7 +23,7 @@
 using namespace std;
 using namespace Hetach::Router;
 
-CompiledRoute::CompiledRoute(vector<string> *pathVariables, vector<string> *parts, string rawPath)
+CompiledRoute::CompiledRoute(vector<string> *pathVariables, std::vector<RoutePart*> *parts, string rawPath)
 {
     this->m_pathVariables = pathVariables;
     this->m_parts = parts;
@@ -35,7 +35,7 @@ vector<string>* CompiledRoute::pathVariables()
     return this->m_pathVariables;
 }
 
-vector<string>* CompiledRoute::parts()
+vector<RoutePart*>* CompiledRoute::parts()
 {
     return this->m_parts;
 }

@@ -23,6 +23,7 @@
 
 #include "gtest/gtest.h"
 #include "router/routecompiler.h"
+#include "router/routepart.h"
 
 class RouteCompilerFixture: public testing::Test
 {
@@ -38,7 +39,10 @@ public:
             new Hetach::Router::Route("/some/path"),
             new Hetach::Router::CompiledRoute(
                 new std::vector<std::string>(),
-                new std::vector<std::string>({"some", "path"}),
+                new std::vector<Hetach::Router::RoutePart*>({
+                    Hetach::Router::RoutePart::createFromString("some"),
+                    Hetach::Router::RoutePart::createFromString("path")
+                }),
                 "/some/path"
             )
         ));
@@ -47,7 +51,11 @@ public:
             new Hetach::Router::Route("/some/path/{name}"),
             new Hetach::Router::CompiledRoute(
                 new std::vector<std::string>({"name"}),
-                new std::vector<std::string>({"some", "path", "{name}"}),
+                new std::vector<Hetach::Router::RoutePart*>({
+                    Hetach::Router::RoutePart::createFromString("some"),
+                    Hetach::Router::RoutePart::createFromString("path"),
+                    Hetach::Router::RoutePart::createFromString("{name}")
+                }),
                 "/some/path/{name}"
             )
         ));
@@ -56,7 +64,12 @@ public:
             new Hetach::Router::Route("/some/path/{name}/{param}"),
             new Hetach::Router::CompiledRoute(
                 new std::vector<std::string>({"name", "param"}),
-                new std::vector<std::string>({"some", "path", "{name}", "{param}"}),
+                new std::vector<Hetach::Router::RoutePart*>({
+                    Hetach::Router::RoutePart::createFromString("some"),
+                    Hetach::Router::RoutePart::createFromString("path"),
+                    Hetach::Router::RoutePart::createFromString("{name}"),
+                    Hetach::Router::RoutePart::createFromString("{param}")
+                }),
                 "/some/path/{name}/{param}"
             )
         ));
@@ -65,7 +78,12 @@ public:
             new Hetach::Router::Route("/some/{name}/path/{param}"),
             new Hetach::Router::CompiledRoute(
                 new std::vector<std::string>({"name", "param"}),
-                new std::vector<std::string>({"some", "{name}", "path", "{param}"}),
+                new std::vector<Hetach::Router::RoutePart*>({
+                    Hetach::Router::RoutePart::createFromString("some"),
+                    Hetach::Router::RoutePart::createFromString("{name}"),
+                    Hetach::Router::RoutePart::createFromString("path"),
+                    Hetach::Router::RoutePart::createFromString("{param}")
+                }),
                 "/some/{name}/path/{param}"
             )
         ));

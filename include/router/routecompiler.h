@@ -21,8 +21,6 @@
 #ifndef HETACH_ROUTER_ROUTECOMPILER_H
 #define HETACH_ROUTER_ROUTECOMPILER_H
 
-#include <string>
-
 #include "router/compiledroute.h"
 #include "router/route.h"
 
@@ -32,10 +30,6 @@ namespace Hetach {
         {
         public:
             RouteCompiler();
-
-            static const std::string paramRegex() {
-                return "([a-zA-Z0-9]+)";
-            }
 
             virtual CompiledRoute* compile(Route *route);
         };

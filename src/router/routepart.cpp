@@ -18,32 +18,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_ROUTER_COMPILEDROUTE_H
-#define HETACH_ROUTER_COMPILEDROUTE_H
-
-#include <string>
-#include <vector>
-
 #include "router/routepart.h"
 
-namespace Hetach {
-    namespace Router {
-        class CompiledRoute
-        {
-        public:
-            CompiledRoute() {}
-            CompiledRoute(std::vector<std::string> *pathVariables, std::vector<RoutePart*> *parts, std::string rawPath);
+using namespace std;
+using namespace Hetach::Router;
 
-            std::vector<std::string>* pathVariables();
-            std::vector<RoutePart*>* parts();
-            std::string rawPath();
+RoutePart::RoutePart()
+{
 
-        protected:
-            std::vector<std::string> *m_pathVariables;
-            std::vector<RoutePart*> *m_parts;
-            std::string m_rawPath;
-        };
-    }
 }
 
-#endif // HETACH_ROUTER_COMPILEDROUTE_H
+RoutePart::RoutePart(std::string name, bool isParameter)
+{
+    this->m_name = name;
+    this->m_isParameter = isParameter;
+}
+
+RoutePart* RoutePart::createFromString(string data)
+{
+    char first = data.front();
+    char last = data.back();
+
+    if(first == '{' && last == '}') {
+        return new RoutePart(data.substr(1, data.size() - 2), true);
+    }
+
+    return new RoutePart(data, false);
+}
+
+string RoutePart::name()
+{
+    return this->m_name;
+}
+
+bool RoutePart::isParameter()
+{
+    return this->m_isParameter;
+}

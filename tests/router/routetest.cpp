@@ -19,6 +19,7 @@
  */
 
 #include "router/route.h"
+#include "router/routepart.h"
 
 #include "gtest/gtest.h"
 
@@ -28,8 +29,19 @@ using namespace Hetach::Router;
 TEST(route_test, testGetPath)
 {
     string path = "/some/path/{param}";
+    vector<RoutePart> parts = {
+        RoutePart("some", false), RoutePart("path", false), RoutePart("param", true)
+    };
 
     Route route(path);
 
     EXPECT_EQ(path, route.path());
+
+    for(int i = 0; i < parts.size(); i++) {
+        RoutePart expectedPart = parts.at(i);
+        RoutePart routePart = route.parts().at(i);
+
+        EXPECT_EQ(expectedPart.name(), routePart.name());
+        EXPECT_EQ(expectedPart.isParameter(), routePart.isParameter());
+    }
 }

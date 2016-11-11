@@ -22,6 +22,9 @@
 #define HETACH_ROUTER_ROUTE_H
 
 #include <string>
+#include <vector>
+
+#include "router/routepart.h"
 
 namespace Hetach {
     namespace Router {
@@ -32,9 +35,11 @@ namespace Hetach {
             Route(std::string path);
 
             std::string path();
+            std::vector<RoutePart> parts();
 
         protected:
             std::string m_path;
+            std::vector<RoutePart> m_parts;
         };
     }
 }

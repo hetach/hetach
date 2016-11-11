@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <sstream>
+
 #include "router/route.h"
 
 using namespace std;
@@ -26,9 +28,31 @@ using namespace Hetach::Router;
 Route::Route(string path)
 {
     this->m_path = path;
+
+    stringstream ss;
+    ss.str(path);
+
+    string item;
+
+    while(getline(ss, item, '/')) {
+        if(item.size() == 0) {
+            continue;
+        }
+
+        RoutePart *part = RoutePart::createFromString(item);
+
+        this->m_parts.push_back(*part);
+
+        delete part;
+    }
 }
 
 string Route::path()
 {
     return this->m_path;
+}
+
+vector<RoutePart> Route::parts()
+{
+    return this->m_parts;
 }
