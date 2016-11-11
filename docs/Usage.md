@@ -15,7 +15,7 @@ Following code is a minimal example with one route supporting GET method:
 
 ```cpp
 #include <application.h>
-// #include <fcgiapplication.h> <- if FastCGI context should be used
+#include <server/webserver.h>
 #include <http-kernel/controller.h>
 
 using namespace Hetach;
@@ -31,8 +31,8 @@ class IndexController: public Controller
 
 int main()
 {
-    // Application uses built-in webserver. Use FCGIApplication instead to init FastCGI context
-    Application *app = new Application();
+    // create application with http server listening on default address and port
+    Application *app = new Application(new WebServer());
 
     Controller *controller = new IndexController();
 
