@@ -45,8 +45,8 @@ namespace Hetach {
 
         void route(std::string route, HttpKernel::Controller *controller);
 
-        virtual void boot();
-        virtual void quit();
+        int exec();
+        void quit();
 
     protected:
         Server::Server *m_server;

@@ -21,6 +21,7 @@
 #include <vector>
 #include <unistd.h>
 #include <fcgio.h>
+#include <iostream>
 
 #include "server/fcgiserver.h"
 
@@ -41,8 +42,15 @@ bool FCGIServer::listen()
 {
     this->m_fcgiRequest = new FCGX_Request();
 
-    FCGX_Init();
-    FCGX_InitRequest(this->m_fcgiRequest, 0, 0);
+    if(FCGX_Init() != 0) {
+        cerr << "FCGX_Init failed" << endl;
+        return false;
+    }
+
+    if(FCGX_InitRequest(this->m_fcgiRequest, 0, 0) != 0) {
+        cerr << "FCGX_InitRequest failed" << endl;
+        return false;
+    }
 
     while(FCGX_Accept_r(this->m_fcgiRequest) == 0) {
         Request *request = Request::create(this->m_fcgiRequest);
@@ -70,6 +78,8 @@ bool FCGIServer::listen()
         delete request;
         delete response;
     }
+
+    return true;
 }
 
 void FCGIServer::close()

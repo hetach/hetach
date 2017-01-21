@@ -59,13 +59,17 @@ void Application::route(string route, HttpKernel::Controller *controller)
     this->m_kernel->add(route, controller);
 }
 
-void Application::boot()
+int Application::exec()
 {
     ApplicationPrivate::kernel = this->m_kernel;
 
     this->m_server->onRequest(ApplicationPrivate::onRequest);
 
-    this->m_server->listen();
+    if(this->m_server->listen()) {
+        return 0;
+    }
+
+    return 1;
 }
 
 void Application::quit()
