@@ -28,12 +28,36 @@ namespace Hetach {
         class RoutePart
         {
         public:
+            /**
+             * @brief RoutePart
+             */
             RoutePart();
+
+            /**
+             * @brief RoutePart
+             * @param name
+             * @param isParameter
+             */
             RoutePart(std::string name, bool isParameter);
 
+            /**
+             * @brief Creates RoutePart from string.
+             *        If part is a parameter, then data starts with "{" and ends with "}"
+             * @param data
+             * @return
+             */
             static RoutePart* createFromString(std::string data);
 
+            /**
+             * @brief Returns name of RoutePart
+             * @return
+             */
             std::string name();
+
+            /**
+             * @brief isParameter
+             * @return
+             */
             bool isParameter();
 
         protected:

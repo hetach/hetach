@@ -30,14 +30,45 @@ namespace Hetach {
         class Request
         {
         public:
+            /**
+             * @brief Request
+             * @param method
+             * @param path
+             * @param content
+             */
             Request(int method, std::string path, std::string content = "");
 
+            /**
+             * @brief Creates Request from incoming FastCGI request
+             * @param request
+             * @return
+             */
             static Request* create(FCGX_Request *request);
+
+            /**
+             * @brief Creates Request from incoming event from evhttp
+             * @param request
+             * @return
+             */
             static Request* create(evhttp_request *request);
 
+            /**
+             * @brief Parses HTTP method string to HttpMethod
+             * @param method
+             * @return
+             */
             static int methodFromString(std::string method);
+
+            /**
+             * @brief Parses libevent enum to HttpMethod
+             * @param method
+             * @return
+             */
             static int methodFromHttpCommand(int method);
 
+            /**
+             * @brief The HttpMethod enum
+             */
             enum HttpMethod {
                 METHOD_GET = 0,
                 METHOD_POST,
@@ -48,8 +79,22 @@ namespace Hetach {
                 METHOD_UNKNOWN
             };
 
+            /**
+             * @brief Returns HTTP method as HttpMethod
+             * @return
+             */
             int method();
+
+            /**
+             * @brief Returns request path (uri)
+             * @return
+             */
             std::string path();
+
+            /**
+             * @brief Returns request body
+             * @return
+             */
             std::string content();
 
         protected:

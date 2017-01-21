@@ -32,8 +32,18 @@ namespace Hetach {
         public:
             ControllerResolver();
 
+            /**
+             * @brief Registers controller to be included in path resolve
+             * @param path
+             * @param controller
+             */
             void addController(std::string path, Controller *controller);
 
+            /**
+             * @brief Resolves Controller for incoming path
+             * @param path
+             * @return
+             */
             virtual Controller* resolve(std::string path);
 
         protected:

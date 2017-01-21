@@ -31,16 +31,52 @@ namespace Hetach {
         class Response
         {
         public:
+            /**
+             * @brief Response
+             */
             Response();
 
+            /**
+             * @brief Sets content of response
+             * @param content
+             */
             void setContent(std::string content);
+
+            /**
+             * @brief Returns content of response
+             * @return
+             */
             std::string content();
 
+            /**
+             * @brief Returns all response headers
+             * @return
+             */
             std::vector<Header> headers();
+
+            /**
+             * @brief Returns Header by name
+             * @param name
+             * @return
+             */
             Header header(std::string name);
+
+            /**
+             * @brief Adds Header to response
+             * @param newHeader
+             */
             void addHeader(Header newHeader);
 
+            /**
+             * @brief Sets response status code
+             * @param code
+             */
             void setStatusCode(int code);
+
+            /**
+             * @brief Returns status code of response
+             * @return
+             */
             int statusCode();
 
         protected:

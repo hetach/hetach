@@ -31,10 +31,27 @@ namespace Hetach {
         class Route
         {
         public:
+            /**
+             * @brief Route
+             */
             Route() {}
+
+            /**
+             * @brief Route
+             * @param path
+             */
             Route(std::string path);
 
+            /**
+             * @brief Returns path template
+             * @return
+             */
             std::string path();
+
+            /**
+             * @brief Returns parts of the Route
+             * @return
+             */
             std::vector<RoutePart> parts();
 
         protected:

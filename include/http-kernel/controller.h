@@ -38,19 +38,68 @@ namespace Hetach {
         class Controller
         {
         public:
+            /**
+             * @brief Controller
+             */
             Controller();
 
+            /**
+             * @brief Returns response
+             * @return
+             */
             Http::Response* response() { return m_response; }
+
+            /**
+             * @brief Returns request
+             * @return
+             */
             Http::Request* request() { return m_request; }
+
+            /**
+             * @brief Returns route Params
+             * @return
+             */
             Hetach::Router::Params* routeParams() { return m_routeParams; }
 
+            /**
+             * @brief Handle GET method
+             */
             virtual void doGet();
+
+            /**
+             * @brief Handle POST method
+             * @param content
+             */
             virtual void doPost(std::string content);
+
+            /**
+             * @brief Handle PUT method
+             * @param content
+             */
             virtual void doPut(std::string content);
+
+            /**
+             * @brief Handle PATCH method
+             * @param content
+             */
             virtual void doPatch(std::string content);
+
+            /**
+             * @brief Handle DELETE method
+             */
             virtual void doDelete();
+
+            /**
+             * @brief Handle OPTIONS method
+             */
             virtual void doOptions();
 
+            /**
+             * @brief Chooses suitable handler for incoming request
+             * @param request
+             * @param response
+             * @param routeParams
+             */
             virtual void handle(Http::Request *request, Http::Response *response, Hetach::Router::Params *routeParams);
 
         protected:

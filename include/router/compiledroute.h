@@ -31,11 +31,35 @@ namespace Hetach {
         class CompiledRoute
         {
         public:
+            /**
+             * @brief CompiledRoute
+             */
             CompiledRoute() {}
+
+            /**
+             * @brief CompiledRoute
+             * @param pathVariables
+             * @param parts
+             * @param rawPath
+             */
             CompiledRoute(std::vector<std::string> *pathVariables, std::vector<RoutePart*> *parts, std::string rawPath);
 
+            /**
+             * @brief Returns extracted path variables
+             * @return
+             */
             std::vector<std::string>* pathVariables();
+
+            /**
+             * @brief Returns created RouteParts
+             * @return
+             */
             std::vector<RoutePart*>* parts();
+
+            /**
+             * @brief Returns raw path template
+             * @return
+             */
             std::string rawPath();
 
         protected:

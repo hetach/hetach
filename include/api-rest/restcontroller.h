@@ -42,14 +42,43 @@ namespace Hetach {
         class RestController: public Hetach::HttpKernel::Controller
         {
         public:
+            /**
+             * @brief RestController
+             * @param resource
+             */
             RestController(Resource *resource);
 
+            /**
+             * @brief Handles GET method
+             */
             void doGet();
+
+            /**
+             * @brief Handles POST method
+             */
             void doPost();
+
+            /**
+             * @brief Handles PATCH method
+             */
             void doPatch();
+
+            /**
+             * @brief Handles PUT method
+             */
             void doPut();
+
+            /**
+             * @brief Handles DELETE method
+             */
             void doDelete();
 
+            /**
+             * @brief Chooses suitable handler for incoming request
+             * @param request
+             * @param response
+             * @param routeParams
+             */
             void handle(Http::Request *request, Http::Response *response, Router::Params *routeParams);
 
         protected:

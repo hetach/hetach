@@ -34,9 +34,23 @@ namespace Hetach {
         class Router
         {
         public:
+            /**
+             * @brief Router
+             */
             Router();
 
+            /**
+             * @brief Registers route to be matched for incoming Request
+             * @param route
+             */
             void addRoute(Route *route);
+
+            /**
+             * @brief Matches path as string to compiled routes.
+             *        Creates Resource object with needed informations to resolve Controller
+             * @param path
+             * @return
+             */
             virtual Resource* match(std::string path);
 
         protected:

@@ -29,9 +29,22 @@ namespace Hetach {
         class Params
         {
         public:
+            /**
+             * @brief Params
+             */
             Params();
+
+            /**
+             * @brief Params
+             * @param params
+             */
             Params(std::map<std::string, std::string> params);
 
+            /**
+             * @brief Returns param value for given key
+             * @param key
+             * @return
+             */
             std::string value(std::string key);
 
         protected:

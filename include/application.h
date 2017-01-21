@@ -39,13 +39,41 @@ namespace Hetach {
     class Application
     {
     public:
+        /**
+         * @brief Application
+         * @param server
+         */
         Application(Server::Server *server);
+
+        /**
+         * @brief Application
+         * @param kernel
+         */
         Application(HttpKernel::Kernel *kernel);
+
+        /**
+         * @brief Application
+         * @param server
+         * @param kernel
+         */
         Application(Server::Server *server, HttpKernel::Kernel *kernel);
 
+        /**
+         * @brief Register Controller for a route template
+         * @param route
+         * @param controller
+         */
         void route(std::string route, HttpKernel::Controller *controller);
 
+        /**
+         * @brief Executes kernel and server
+         * @return
+         */
         int exec();
+
+        /**
+         * @brief quit
+         */
         void quit();
 
     protected:

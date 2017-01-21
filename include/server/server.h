@@ -31,11 +31,22 @@ namespace Hetach {
         class Server
         {
         public:
+            /**
+             * @brief onRequest
+             */
             virtual void onRequest(Http::Response* (*callback)(Http::Request *request)) {
                 m_onRequest = callback;
             }
 
+            /**
+             * @brief listen
+             * @return
+             */
             virtual bool listen() = 0;
+
+            /**
+             * @brief close
+             */
             virtual void close() = 0;
 
         protected:

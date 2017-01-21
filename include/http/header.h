@@ -28,11 +28,37 @@ namespace Hetach {
         class Header
         {
         public:
+            /**
+             * @brief Header
+             * @param name
+             * @param value
+             */
             Header(std::string name, std::string value);
+
+            /**
+             * @brief Header
+             * @param name
+             * @param value
+             */
             Header(std::string name, int value);
 
+            /**
+             * @brief Header name
+             * @return
+             */
             std::string name();
+
+            /**
+             * @brief Header value
+             * @return
+             */
             std::string value();
+
+            /**
+             * @brief Creates string from Header object.
+             *        Example: "Content-type: application/json"
+             * @return
+             */
             std::string toString();
 
         protected:

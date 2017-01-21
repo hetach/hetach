@@ -30,9 +30,20 @@ namespace Hetach {
         class FCGIServer: public Server
         {
         public:
+            /**
+             * @brief FCGIServer
+             */
             FCGIServer();
 
+            /**
+             * @brief listen
+             * @return
+             */
             bool listen();
+
+            /**
+             * @brief close
+             */
             void close();
 
         protected:

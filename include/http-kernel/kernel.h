@@ -38,13 +38,42 @@ namespace Hetach {
         class Kernel
         {
         public:
+            /**
+             * @brief Kernel
+             */
             Kernel();
+
+            /**
+             * @brief Kernel
+             * @param controllerResolver
+             */
             Kernel(ControllerResolver *controllerResolver);
+
+            /**
+             * @brief Kernel
+             * @param router
+             */
             Kernel(Router::Router *router);
+
+            /**
+             * @brief Kernel
+             * @param controllerResolver
+             * @param router
+             */
             Kernel(ControllerResolver *controllerResolver, Router::Router *router);
 
+            /**
+             * @brief Handles incoming Request
+             * @param request
+             * @return
+             */
             virtual Http::Response* handle(Http::Request *request);
 
+            /**
+             * @brief Registers Controller for path template
+             * @param path
+             * @param controller
+             */
             void add(std::string path, Controller *controller);
 
         protected:

@@ -29,8 +29,17 @@ namespace Hetach {
         class RouteCompiler
         {
         public:
+            /**
+             * @brief RouteCompiler
+             */
             RouteCompiler();
 
+            /**
+             * @brief Compiles Route.
+             *        Extracts route params
+             * @param route
+             * @return
+             */
             virtual CompiledRoute* compile(Route *route);
         };
     }

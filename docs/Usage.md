@@ -38,9 +38,7 @@ int main()
 
     app->route("/index", controller);
 
-    app->run();
-
-    return 0;
+    return app->exec();
 }
 
 ```

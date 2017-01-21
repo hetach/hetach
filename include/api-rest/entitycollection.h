@@ -31,12 +31,33 @@ namespace Hetach {
         class EntityCollection
         {
         public:
+            /**
+             * @brief EntityCollection
+             * @param collection
+             */
             EntityCollection(std::list<Entity*> collection);
+
+            /**
+             * @brief ~EntityCollection
+             */
             ~EntityCollection();
 
+            /**
+             * @brief items
+             * @return
+             */
             std::list<Entity*> items();
+
+            /**
+             * @brief count
+             * @return
+             */
             int count();
 
+            /**
+             * @brief Builds JSON string which represent the collection of Entities
+             * @return
+             */
             virtual std::string toJson();
 
         protected:

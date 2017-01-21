@@ -28,9 +28,20 @@ namespace Hetach {
         class Entity
         {
         public:
+            /**
+             * @brief Entity
+             */
             Entity();
+
+            /**
+             * @brief ~Entity
+             */
             virtual ~Entity() {}
 
+            /**
+             * @brief Builds JSON string which represent the Entity. To implement for user
+             * @return
+             */
             virtual std::string toJson() = 0;
         };
     }

@@ -37,10 +37,27 @@ namespace Hetach {
         class WebServer: public Server
         {
         public:
+            /**
+             * @brief WebServer
+             */
             WebServer();
+
+            /**
+             * @brief WebServer
+             * @param address
+             * @param port
+             */
             WebServer(std::string address, int port);
 
+            /**
+             * @brief listen
+             * @return
+             */
             bool listen();
+
+            /**
+             * @brief close
+             */
             void close();
 
         protected:

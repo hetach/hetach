@@ -33,20 +33,69 @@ namespace Hetach {
         public:
             Resource();
 
+            /**
+             * @brief Name of the resource.
+             *        Will be used in path as <apiRoutePrefix>[/<parentResourceName>/<id>]/<name>
+             * @return
+             */
             virtual std::string name() = 0;
 
+            /**
+             * @brief Fetch (GET) single Entity. To implement by user
+             * @param id
+             * @return
+             */
             virtual Entity* fetch(int id);
+
+            /**
+             * @brief Fetch (GET) collection of Entities. To implement by user
+             * @return
+             */
             virtual EntityCollection* fetchAll();
 
+            /**
+             * @brief Create (POST) new Entity. To implement by user
+             * @return
+             */
             virtual Entity* create();
 
+            /**
+             * @brief Update (PATCH) an Entity. To implement by user
+             * @param id
+             * @return
+             */
             virtual Entity* update(int id);
+
+            /**
+             * @brief Update (PATCH) collection of Entities. To implement by user
+             * @return
+             */
             virtual EntityCollection* update();
 
+            /**
+             * @brief Replace (PUT) an Entity. To implement by user
+             * @param id
+             * @return
+             */
             virtual Entity* replace(int id);
+
+            /**
+             * @brief Replace (PUT) collection of Entities. To implement by user
+             * @return
+             */
             virtual EntityCollection* replace();
 
+            /**
+             * @brief Remove (DELETE) an Entity. To implement by user
+             * @param id
+             * @return
+             */
             virtual Entity* remove(int id);
+
+            /**
+             * @brief Remove (DELETE) collection of Entities. To implement by user
+             * @return
+             */
             virtual EntityCollection* remove();
         };
     }

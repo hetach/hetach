@@ -33,9 +33,24 @@ namespace Hetach {
         class ApiRest
         {
         public:
+            /**
+             * @brief ApiRest
+             * @param application
+             * @param routePrefix
+             */
             ApiRest(Hetach::Application *application, std::string routePrefix);
 
+            /**
+             * @brief Register resource in application
+             * @param resource
+             */
             void addResource(Resource *resource);
+
+            /**
+             * @brief Register subresource for resource in application
+             * @param parent
+             * @param resource
+             */
             void addResource(Resource *parent, Resource *resource);
 
         protected:
