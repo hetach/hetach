@@ -1,0 +1,20 @@
+sudo: false
+
+language: cpp
+
+services:
+  - docker
+
+env:
+  matrix:
+    - IMAGE="gcc:trusty"
+    - IMAGE="gcc:xenial"
+
+before_install:
+  - ./docker/generateDockerfile.sh -t docker/Dockerfile.template -e image=$IMAGE >> Dockerfile
+
+install:
+  - docker build -t gorzechowski/hetach .
+
+script:
+  - docker run --rm gorzechowski/hetach bash --login /opt/hetach/scripts/check.sh
