@@ -14,9 +14,9 @@ Depending on build system of Your choice, setup will be different, but here are 
 Following code is a minimal example with one route supporting GET method:
 
 ```cpp
-#include <application.h>
-#include <server/webserver.h>
-#include <http-kernel/controller.h>
+#include <hetach/application.h>
+#include <hetach/server/webserver.h>
+#include <hetach/http-kernel/controller.h>
 
 using namespace Hetach;
 using namespace Hetach::HttpKernel;
