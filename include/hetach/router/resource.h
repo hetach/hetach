@@ -24,9 +24,9 @@
 #include <map>
 #include <string>
 
-#include "router/route.h"
-#include "router/compiledroute.h"
-#include "router/params.h"
+#include "hetach/router/route.h"
+#include "hetach/router/compiledroute.h"
+#include "hetach/router/params.h"
 
 namespace Hetach {
     namespace Router {

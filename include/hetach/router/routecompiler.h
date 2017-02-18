@@ -21,8 +21,8 @@
 #ifndef HETACH_ROUTER_ROUTECOMPILER_H
 #define HETACH_ROUTER_ROUTECOMPILER_H
 
-#include "router/compiledroute.h"
-#include "router/route.h"
+#include "hetach/router/compiledroute.h"
+#include "hetach/router/route.h"
 
 namespace Hetach {
     namespace Router {

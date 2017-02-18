@@ -21,8 +21,8 @@
 #ifndef HETACH_HTTPKERNEL_KERNEL_H
 #define HETACH_HTTPKERNEL_KERNEL_H
 
-#include "http-kernel/controller.h"
-#include "http-kernel/controllerresolver.h"
+#include "hetach/http-kernel/controller.h"
+#include "hetach/http-kernel/controllerresolver.h"
 
 namespace Hetach {
     namespace Router {

@@ -22,8 +22,8 @@
 #define ROUTER_FIXTURES_ROUTECOMPILERFIXTURE_H
 
 #include "gtest/gtest.h"
-#include "router/routecompiler.h"
-#include "router/routepart.h"
+#include "hetach/router/routecompiler.h"
+#include "hetach/router/routepart.h"
 
 class RouteCompilerFixture: public testing::Test
 {

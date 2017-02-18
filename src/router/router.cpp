@@ -21,9 +21,9 @@
 #include <vector>
 #include <iostream>
 
-#include "router/router.h"
-#include "router/params.h"
-#include "router/resourcenotfoundexception.h"
+#include "hetach/router/router.h"
+#include "hetach/router/params.h"
+#include "hetach/router/resourcenotfoundexception.h"
 
 using namespace std;
 using namespace Hetach::Router;

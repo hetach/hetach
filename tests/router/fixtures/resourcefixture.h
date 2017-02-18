@@ -23,7 +23,7 @@
 
 #include "gtest/gtest.h"
 #include "router/fixtures/compiledroutefixture.h"
-#include "router/resource.h"
+#include "hetach/router/resource.h"
 
 class ResourceFixture: public CompiledRouteFixture
 {

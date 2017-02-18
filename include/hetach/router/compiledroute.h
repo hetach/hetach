@@ -18,52 +18,56 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_APIREST_ENTITYCOLLECTION_H
-#define HETACH_APIREST_ENTITYCOLLECTION_H
+#ifndef HETACH_ROUTER_COMPILEDROUTE_H
+#define HETACH_ROUTER_COMPILEDROUTE_H
 
-#include <list>
 #include <string>
+#include <vector>
 
-#include "api-rest/entity.h"
+#include "hetach/router/routepart.h"
 
 namespace Hetach {
-    namespace ApiRest {
-        class EntityCollection
+    namespace Router {
+        class CompiledRoute
         {
         public:
             /**
-             * @brief EntityCollection
-             * @param collection
+             * @brief CompiledRoute
              */
-            EntityCollection(std::list<Entity*> collection);
+            CompiledRoute() {}
 
             /**
-             * @brief ~EntityCollection
+             * @brief CompiledRoute
+             * @param pathVariables
+             * @param parts
+             * @param rawPath
              */
-            ~EntityCollection();
+            CompiledRoute(std::vector<std::string> *pathVariables, std::vector<RoutePart*> *parts, std::string rawPath);
 
             /**
-             * @brief items
+             * @brief Returns extracted path variables
              * @return
              */
-            std::list<Entity*> items();
+            std::vector<std::string>* pathVariables();
 
             /**
-             * @brief count
+             * @brief Returns created RouteParts
              * @return
              */
-            int count();
+            std::vector<RoutePart*>* parts();
 
             /**
-             * @brief Builds JSON string which represent the collection of Entities
+             * @brief Returns raw path template
              * @return
              */
-            virtual std::string toJson();
+            std::string rawPath();
 
         protected:
-            std::list<Entity*> m_collection;
+            std::vector<std::string> *m_pathVariables;
+            std::vector<RoutePart*> *m_parts;
+            std::string m_rawPath;
         };
     }
 }
 
-#endif // HETACH_APIREST_ENTITYCOLLECTION_H
+#endif // HETACH_ROUTER_COMPILEDROUTE_H

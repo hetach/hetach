@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "api-rest/entity.h"
+#include "hetach/api-rest/entity.h"
 
 using namespace Hetach::ApiRest;
 

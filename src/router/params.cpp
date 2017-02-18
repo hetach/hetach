@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "router/params.h"
-#include "router/paramnotfoundexception.h"
+#include "hetach/router/params.h"
+#include "hetach/router/paramnotfoundexception.h"
 
 using namespace std;
 using namespace Hetach::Router;

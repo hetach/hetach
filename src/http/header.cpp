@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http/header.h"
+#include "hetach/http/header.h"
 
 using namespace std;
 using namespace Hetach::Http;

@@ -19,15 +19,15 @@
  */
 
 #include <iterator>
-#include <router/router.h>
-#include <router/resourcenotfoundexception.h>
 #include <string>
+#include <hetach/router/router.h>
+#include <hetach/router/resourcenotfoundexception.h>
 
-#include "http-kernel/kernel.h"
-#include "http/request.h"
-#include "http/response.h"
-#include "http-kernel/methodnotimplementedexception.h"
-#include "http-kernel/methodunknownexception.h"
+#include "hetach/http-kernel/kernel.h"
+#include "hetach/http/request.h"
+#include "hetach/http/response.h"
+#include "hetach/http-kernel/methodnotimplementedexception.h"
+#include "hetach/http-kernel/methodunknownexception.h"
 
 using namespace std;
 using namespace Hetach::HttpKernel;

@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http/response.h"
-#include "http/header.h"
-#include "http-kernel/headernotfoundexception.h"
+#include "hetach/http/response.h"
+#include "hetach/http/header.h"
+#include "hetach/http-kernel/headernotfoundexception.h"
 
 using namespace std;
 using namespace Hetach::Http;

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "router/compiledroute.h"
+#include "hetach/router/compiledroute.h"
 
 using namespace std;
 using namespace Hetach::Router;

@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <http-kernel/methodnotimplementedexception.h>
+#include <hetach/http-kernel/methodnotimplementedexception.h>
 
-#include "api-rest/resource.h"
+#include "hetach/api-rest/resource.h"
 
 using namespace Hetach::ApiRest;
 using namespace Hetach::HttpKernel;

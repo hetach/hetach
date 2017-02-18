@@ -19,7 +19,7 @@
  */
 
 #include "http/fixtures/responsefixture.h"
-#include "http/header.h"
+#include "hetach/http/header.h"
 
 #include "gtest/gtest.h"
 

@@ -18,13 +18,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <http-kernel/controller.h>
-#include <http/response.h>
-#include <http/header.h>
-#include <router/params.h>
-#include <router/paramnotfoundexception.h>
+#include <hetach/http-kernel/controller.h>
+#include <hetach/http/response.h>
+#include <hetach/http/header.h>
+#include <hetach/router/params.h>
+#include <hetach/router/paramnotfoundexception.h>
 
-#include "api-rest/restcontroller.h"
+#include "hetach/api-rest/restcontroller.h"
 
 using namespace std;
 using namespace Hetach::ApiRest;
