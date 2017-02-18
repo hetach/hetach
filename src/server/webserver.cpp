@@ -23,10 +23,10 @@
 #include <iostream>
 #include <evhttp.h>
 
-#include "server/webserver.h"
-#include "http/request.h"
-#include "http/response.h"
-#include "http/header.h"
+#include "hetach/server/webserver.h"
+#include "hetach/http/request.h"
+#include "hetach/http/response.h"
+#include "hetach/http/header.h"
 
 using namespace std;
 using namespace Hetach::Http;

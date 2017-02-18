@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <application.h>
+#include <hetach/application.h>
 
-#include "api-rest/apirest.h"
-#include "api-rest/restcontroller.h"
+#include "hetach/api-rest/apirest.h"
+#include "hetach/api-rest/restcontroller.h"
 
 using namespace std;
 using namespace Hetach::ApiRest;

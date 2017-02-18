@@ -18,47 +18,47 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_APIREST_APIREST_H
-#define HETACH_APIREST_APIREST_H
+#ifndef HETACH_ROUTER_ROUTER_H
+#define HETACH_ROUTER_ROUTER_H
 
 #include <string>
 #include <map>
 
-#include "api-rest/resource.h"
+#include "hetach/router/routecompiler.h"
+#include "hetach/router/route.h"
+#include "hetach/router/compiledroute.h"
+#include "hetach/router/resource.h"
 
 namespace Hetach {
-    class Application;
-
-    namespace ApiRest {
-        class ApiRest
+    namespace Router {
+        class Router
         {
         public:
             /**
-             * @brief ApiRest
-             * @param application
-             * @param routePrefix
+             * @brief Router
              */
-            ApiRest(Hetach::Application *application, std::string routePrefix);
+            Router();
 
             /**
-             * @brief Register resource in application
-             * @param resource
+             * @brief Registers route to be matched for incoming Request
+             * @param route
              */
-            void addResource(Resource *resource);
+            void addRoute(Route *route);
 
             /**
-             * @brief Register subresource for resource in application
-             * @param parent
-             * @param resource
+             * @brief Matches path as string to compiled routes.
+             *        Creates Resource object with needed informations to resolve Controller
+             * @param path
+             * @return
              */
-            void addResource(Resource *parent, Resource *resource);
+            virtual Resource* match(std::string path);
 
         protected:
-            Hetach::Application *m_application;
-            std::string m_routePrefix;
-            std::map<std::string, std::string> m_routes;
+            std::map<Route*, CompiledRoute*> m_routes;
+            RouteCompiler *m_compiler;
         };
     }
 }
 
-#endif // HETACH_APIREST_APIREST_H
+
+#endif // HETACH_ROUTER_ROUTER_H

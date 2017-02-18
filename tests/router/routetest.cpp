@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "router/route.h"
-#include "router/routepart.h"
+#include "hetach/router/route.h"
+#include "hetach/router/routepart.h"
 
 #include "gtest/gtest.h"
 

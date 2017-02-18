@@ -22,7 +22,7 @@
 #define HTTP_FIXTURES_REQUESTFIXTURE_H
 
 #include "gtest/gtest.h"
-#include "http/request.h"
+#include "hetach/http/request.h"
 
 class RequestFixture: public testing::Test
 {

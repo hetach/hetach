@@ -22,11 +22,11 @@
 #define HETACH_APIREST_RESTCONTROLLER_H
 
 #include <string>
-#include <http-kernel/controller.h>
+#include <hetach/http-kernel/controller.h>
 
-#include "api-rest/resource.h"
-#include "api-rest/entity.h"
-#include "api-rest/entitycollection.h"
+#include "hetach/api-rest/resource.h"
+#include "hetach/api-rest/entity.h"
+#include "hetach/api-rest/entitycollection.h"
 
 namespace Hetach {
     namespace Http {

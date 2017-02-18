@@ -18,22 +18,36 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_SERVER_FCGISERVER_H
-#define HETACH_SERVER_FCGISERVER_H
+#ifndef HETACH_SERVER_WEBSERVER_H
+#define HETACH_SERVER_WEBSERVER_H
 
-#include "server/server.h"
+#include <string>
 
-class FCGX_Request;
+#include "hetach/server/server.h"
+
+class evhttp;
 
 namespace Hetach {
+    namespace Http {
+        class Request;
+        class Response;
+    }
+
     namespace Server {
-        class FCGIServer: public Server
+        class WebServer: public Server
         {
         public:
             /**
-             * @brief FCGIServer
+             * @brief WebServer
              */
-            FCGIServer();
+            WebServer();
+
+            /**
+             * @brief WebServer
+             * @param address
+             * @param port
+             */
+            WebServer(std::string address, int port);
 
             /**
              * @brief listen
@@ -47,9 +61,12 @@ namespace Hetach {
             void close();
 
         protected:
-            FCGX_Request *m_fcgiRequest;
+            std::string m_addres;
+            int m_port;
+
+            evhttp *m_httpd;
         };
     }
 }
 
-#endif // HETACH_SERVER_FCGISERVER_H
+#endif // HETACH_SERVER_WEBSERVER_H

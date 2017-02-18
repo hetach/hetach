@@ -24,8 +24,8 @@
 #include <list>
 
 #include "gtest/gtest.h"
-#include "router/compiledroute.h"
-#include "router/routepart.h"
+#include "hetach/router/compiledroute.h"
+#include "hetach/router/routepart.h"
 
 class CompiledRouteFixture: public testing::Test
 {

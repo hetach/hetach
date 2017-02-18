@@ -21,8 +21,8 @@
 #include <string>
 #include <vector>
 
-#include "router/routecompiler.h"
-#include "router/routepart.h"
+#include "hetach/router/routecompiler.h"
+#include "hetach/router/routepart.h"
 
 using namespace std;
 using namespace Hetach::Router;

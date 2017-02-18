@@ -18,13 +18,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http-kernel/kernel.h"
-#include "http-kernel/controller.h"
-#include "http/request.h"
-#include "http/response.h"
-#include "server/server.h"
+#include "hetach/http-kernel/kernel.h"
+#include "hetach/http-kernel/controller.h"
+#include "hetach/http/request.h"
+#include "hetach/http/response.h"
+#include "hetach/server/server.h"
 
-#include "application.h"
+#include "hetach/application.h"
 
 using namespace std;
 using namespace Hetach;

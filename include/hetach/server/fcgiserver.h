@@ -18,38 +18,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H
-#define HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H
+#ifndef HETACH_SERVER_FCGISERVER_H
+#define HETACH_SERVER_FCGISERVER_H
 
-#include <string>
+#include "hetach/server/server.h"
 
-#include "http-kernel/controller.h"
+class FCGX_Request;
 
 namespace Hetach {
-    namespace HttpKernel {
-        class ControllerResolver
+    namespace Server {
+        class FCGIServer: public Server
         {
         public:
-            ControllerResolver();
-
             /**
-             * @brief Registers controller to be included in path resolve
-             * @param path
-             * @param controller
+             * @brief FCGIServer
              */
-            void addController(std::string path, Controller *controller);
+            FCGIServer();
 
             /**
-             * @brief Resolves Controller for incoming path
-             * @param path
+             * @brief listen
              * @return
              */
-            virtual Controller* resolve(std::string path);
+            bool listen();
+
+            /**
+             * @brief close
+             */
+            void close();
 
         protected:
-            std::map<std::string, Controller*> m_controllers;
+            FCGX_Request *m_fcgiRequest;
         };
     }
 }
 
-#endif // HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H
+#endif // HETACH_SERVER_FCGISERVER_H

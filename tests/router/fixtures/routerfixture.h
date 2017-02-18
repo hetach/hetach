@@ -22,7 +22,7 @@
 #define ROUTER_FIXTURES_ROUTERFIXTURE_H
 
 #include "gtest/gtest.h"
-#include "router/router.h"
+#include "hetach/router/router.h"
 
 class RouterFixture: public testing::Test
 {

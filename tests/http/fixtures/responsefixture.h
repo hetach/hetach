@@ -22,8 +22,8 @@
 #define HTTP_FIXTURES_RESPONSEFIXTURE_H
 
 #include "gtest/gtest.h"
-#include "http/response.h"
-#include "http/header.h"
+#include "hetach/http/response.h"
+#include "hetach/http/header.h"
 
 class ResponseFixture: public testing::Test
 {

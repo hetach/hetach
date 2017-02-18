@@ -18,47 +18,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_ROUTER_ROUTER_H
-#define HETACH_ROUTER_ROUTER_H
+#ifndef HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H
+#define HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H
 
 #include <string>
-#include <map>
 
-#include "router/routecompiler.h"
-#include "router/route.h"
-#include "router/compiledroute.h"
-#include "router/resource.h"
+#include "hetach/http-kernel/controller.h"
 
 namespace Hetach {
-    namespace Router {
-        class Router
+    namespace HttpKernel {
+        class ControllerResolver
         {
         public:
-            /**
-             * @brief Router
-             */
-            Router();
+            ControllerResolver();
 
             /**
-             * @brief Registers route to be matched for incoming Request
-             * @param route
+             * @brief Registers controller to be included in path resolve
+             * @param path
+             * @param controller
              */
-            void addRoute(Route *route);
+            void addController(std::string path, Controller *controller);
 
             /**
-             * @brief Matches path as string to compiled routes.
-             *        Creates Resource object with needed informations to resolve Controller
+             * @brief Resolves Controller for incoming path
              * @param path
              * @return
              */
-            virtual Resource* match(std::string path);
+            virtual Controller* resolve(std::string path);
 
         protected:
-            std::map<Route*, CompiledRoute*> m_routes;
-            RouteCompiler *m_compiler;
+            std::map<std::string, Controller*> m_controllers;
         };
     }
 }
 
-
-#endif // HETACH_ROUTER_ROUTER_H
+#endif // HETACH_HTTPKERNEL_CONTROLLERRESOLVER_H

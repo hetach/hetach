@@ -23,11 +23,11 @@
 #include <fcgio.h>
 #include <iostream>
 
-#include "server/fcgiserver.h"
+#include "hetach/server/fcgiserver.h"
 
-#include "http/header.h"
-#include "http/request.h"
-#include "http/response.h"
+#include "hetach/http/header.h"
+#include "hetach/http/request.h"
+#include "hetach/http/response.h"
 
 using namespace std;
 using namespace Hetach::Http;

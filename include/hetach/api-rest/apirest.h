@@ -18,55 +18,47 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef HETACH_SERVER_WEBSERVER_H
-#define HETACH_SERVER_WEBSERVER_H
+#ifndef HETACH_APIREST_APIREST_H
+#define HETACH_APIREST_APIREST_H
 
 #include <string>
+#include <map>
 
-#include "server.h"
-
-class evhttp;
+#include "hetach/api-rest/resource.h"
 
 namespace Hetach {
-    namespace Http {
-        class Request;
-        class Response;
-    }
+    class Application;
 
-    namespace Server {
-        class WebServer: public Server
+    namespace ApiRest {
+        class ApiRest
         {
         public:
             /**
-             * @brief WebServer
+             * @brief ApiRest
+             * @param application
+             * @param routePrefix
              */
-            WebServer();
+            ApiRest(Hetach::Application *application, std::string routePrefix);
 
             /**
-             * @brief WebServer
-             * @param address
-             * @param port
+             * @brief Register resource in application
+             * @param resource
              */
-            WebServer(std::string address, int port);
+            void addResource(Resource *resource);
 
             /**
-             * @brief listen
-             * @return
+             * @brief Register subresource for resource in application
+             * @param parent
+             * @param resource
              */
-            bool listen();
-
-            /**
-             * @brief close
-             */
-            void close();
+            void addResource(Resource *parent, Resource *resource);
 
         protected:
-            std::string m_addres;
-            int m_port;
-
-            evhttp *m_httpd;
+            Hetach::Application *m_application;
+            std::string m_routePrefix;
+            std::map<std::string, std::string> m_routes;
         };
     }
 }
 
-#endif // HETACH_SERVER_WEBSERVER_H
+#endif // HETACH_APIREST_APIREST_H

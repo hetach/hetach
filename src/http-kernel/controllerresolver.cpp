@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http-kernel/controllerresolver.h"
+#include "hetach/http-kernel/controllerresolver.h"
 
 using namespace std;
 using namespace Hetach::HttpKernel;

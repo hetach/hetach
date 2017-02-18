@@ -18,13 +18,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "http/request.h"
-#include "http/response.h"
-#include "http-kernel/methodunknownexception.h"
-#include "http-kernel/methodnotimplementedexception.h"
-#include "http-kernel/controller.h"
+#include "hetach/http/request.h"
+#include "hetach/http/response.h"
+#include "hetach/http-kernel/methodunknownexception.h"
+#include "hetach/http-kernel/methodnotimplementedexception.h"
+#include "hetach/http-kernel/controller.h"
 
-#include "router/params.h"
+#include "hetach/router/params.h"
 
 using namespace std;
 using namespace Hetach::HttpKernel;

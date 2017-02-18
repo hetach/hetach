@@ -23,8 +23,8 @@
 
 #include <string>
 
-#include "api-rest/entity.h"
-#include "api-rest/entitycollection.h"
+#include "hetach/api-rest/entity.h"
+#include "hetach/api-rest/entitycollection.h"
 
 namespace Hetach {
     namespace ApiRest {

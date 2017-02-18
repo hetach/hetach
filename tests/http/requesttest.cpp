@@ -19,7 +19,7 @@
  */
 
 #include "http/fixtures/requestfixture.h"
-#include "http/header.h"
+#include "hetach/http/header.h"
 
 using namespace std;
 using namespace Hetach::Http;

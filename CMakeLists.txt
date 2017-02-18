@@ -52,38 +52,38 @@ set(
     src/server/fcgiserver.cpp
     src/server/webserver.cpp
 
-    include/application.h
+    include/hetach/application.h
 
-    include/api-rest/apirest.h
-    include/api-rest/entity.h
-    include/api-rest/entitycollection.h
-    include/api-rest/resource.h
-    include/api-rest/restcontroller.h
+    include/hetach/api-rest/apirest.h
+    include/hetach/api-rest/entity.h
+    include/hetach/api-rest/entitycollection.h
+    include/hetach/api-rest/resource.h
+    include/hetach/api-rest/restcontroller.h
 
-    include/http/header.h
-    include/http/request.h
-    include/http/response.h
+    include/hetach/http/header.h
+    include/hetach/http/request.h
+    include/hetach/http/response.h
 
-    include/http-kernel/controller.h
-    include/http-kernel/controllerresolver.h
-    include/http-kernel/kernel.h
-    include/http-kernel/headernotfoundexception.h
-    include/http-kernel/methodnotimplementedexception.h
-    include/http-kernel/methodunknownexception.h
+    include/hetach/http-kernel/controller.h
+    include/hetach/http-kernel/controllerresolver.h
+    include/hetach/http-kernel/kernel.h
+    include/hetach/http-kernel/headernotfoundexception.h
+    include/hetach/http-kernel/methodnotimplementedexception.h
+    include/hetach/http-kernel/methodunknownexception.h
 
-    include/server/fcgiserver.h
-    include/server/server.h
-    include/server/webserver.h
+    include/hetach/server/fcgiserver.h
+    include/hetach/server/server.h
+    include/hetach/server/webserver.h
 
-    include/router/compiledroute.h
-    include/router/params.h
-    include/router/paramnotfoundexception.h
-    include/router/resource.h
-    include/router/resourcenotfoundexception.h
-    include/router/route.h
-    include/router/routecompiler.h
-    include/router/routepart.h
-    include/router/router.h
+    include/hetach/router/compiledroute.h
+    include/hetach/router/params.h
+    include/hetach/router/paramnotfoundexception.h
+    include/hetach/router/resource.h
+    include/hetach/router/resourcenotfoundexception.h
+    include/hetach/router/route.h
+    include/hetach/router/routecompiler.h
+    include/hetach/router/routepart.h
+    include/hetach/router/router.h
 
 )
 
