@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+#### **0.1.2** _(25.02.2017)_
+- Fixed ApiRest request content pass
+
 #### **0.1.1** _(18.02.2017)_
 - Fixed includes
 
