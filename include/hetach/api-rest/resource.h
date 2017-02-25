@@ -55,35 +55,40 @@ namespace Hetach {
 
             /**
              * @brief Create (POST) new Entity. To implement by user
+             * @param content
              * @return
              */
-            virtual Entity* create();
+            virtual Entity* create(std::string content);
 
             /**
              * @brief Update (PATCH) an Entity. To implement by user
              * @param id
+             * @param content
              * @return
              */
-            virtual Entity* update(int id);
+            virtual Entity* update(int id, std::string content);
 
             /**
              * @brief Update (PATCH) collection of Entities. To implement by user
+             * @param content
              * @return
              */
-            virtual EntityCollection* update();
+            virtual EntityCollection* update(std::string content);
 
             /**
              * @brief Replace (PUT) an Entity. To implement by user
              * @param id
+             * @param content
              * @return
              */
-            virtual Entity* replace(int id);
+            virtual Entity* replace(int id, std::string content);
 
             /**
              * @brief Replace (PUT) collection of Entities. To implement by user
+             * @param content
              * @return
              */
-            virtual EntityCollection* replace();
+            virtual EntityCollection* replace(std::string content);
 
             /**
              * @brief Remove (DELETE) an Entity. To implement by user

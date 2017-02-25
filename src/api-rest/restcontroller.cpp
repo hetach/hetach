@@ -20,6 +20,7 @@
 
 #include <hetach/http-kernel/controller.h>
 #include <hetach/http/response.h>
+#include <hetach/http/request.h>
 #include <hetach/http/header.h>
 #include <hetach/router/params.h>
 #include <hetach/router/paramnotfoundexception.h>
@@ -62,7 +63,7 @@ void RestController::doGet()
 
 void RestController::doPost()
 {
-    Entity *entity = this->m_resource->create();
+    Entity *entity = this->m_resource->create(this->request()->content());
 
     string content = this->buildJson(entity);
 
@@ -78,13 +79,13 @@ void RestController::doPatch()
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
-        Entity *entity = this->m_resource->update(id);
+        Entity *entity = this->m_resource->update(id, this->request()->content());
 
         content = this->buildJson(entity);
 
         delete entity;
     } catch(ParamNotFoundException) {
-        EntityCollection *collection = this->m_resource->update();
+        EntityCollection *collection = this->m_resource->update(this->request()->content());
 
         content = this->buildJson(collection);
 
@@ -101,13 +102,13 @@ void RestController::doPut()
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
-        Entity *entity = this->m_resource->replace(id);
+        Entity *entity = this->m_resource->replace(id, this->request()->content());
 
         content = this->buildJson(entity);
 
         delete entity;
     } catch(ParamNotFoundException) {
-        EntityCollection *collection = this->m_resource->replace();
+        EntityCollection *collection = this->m_resource->replace(this->request()->content());
 
         content = this->buildJson(collection);
 

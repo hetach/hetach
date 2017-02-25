@@ -18,12 +18,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <string>
+
 #include <hetach/http-kernel/methodnotimplementedexception.h>
 
 #include "hetach/api-rest/resource.h"
 
 using namespace Hetach::ApiRest;
 using namespace Hetach::HttpKernel;
+using namespace std;
 
 Resource::Resource()
 {
@@ -40,27 +43,27 @@ EntityCollection* Resource::fetchAll()
     throw MethodNotImplementedException();
 }
 
-Entity* Resource::create()
+Entity* Resource::create(string)
 {
     throw MethodNotImplementedException();
 }
 
-Entity* Resource::update(int)
+Entity* Resource::update(int, string)
 {
     throw MethodNotImplementedException();
 }
 
-EntityCollection* Resource::update()
+EntityCollection* Resource::update(string)
 {
     throw MethodNotImplementedException();
 }
 
-Entity* Resource::replace(int)
+Entity* Resource::replace(int, string)
 {
     throw MethodNotImplementedException();
 }
 
-EntityCollection* Resource::replace()
+EntityCollection* Resource::replace(string)
 {
     throw MethodNotImplementedException();
 }
