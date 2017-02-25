@@ -55,18 +55,21 @@ namespace Hetach {
 
             /**
              * @brief Handles POST method
+             * @param content
              */
-            void doPost();
+            void doPost(std::string content);
 
             /**
              * @brief Handles PATCH method
+             * @param content
              */
-            void doPatch();
+            void doPatch(std::string content);
 
             /**
              * @brief Handles PUT method
+             * @param content
              */
-            void doPut();
+            void doPut(std::string content);
 
             /**
              * @brief Handles DELETE method
