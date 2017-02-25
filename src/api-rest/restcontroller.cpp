@@ -61,61 +61,61 @@ void RestController::doGet()
     this->response()->setContent(content);
 }
 
-void RestController::doPost()
+void RestController::doPost(string content)
 {
-    Entity *entity = this->m_resource->create(this->request()->content());
+    Entity *entity = this->m_resource->create(content);
 
-    string content = this->buildJson(entity);
+    string responseContent = this->buildJson(entity);
 
     delete entity;
 
-    this->response()->setContent(content);
+    this->response()->setContent(responseContent);
 }
 
-void RestController::doPatch()
+void RestController::doPatch(string content)
 {
-    string content;
+    string responseContent;
 
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
-        Entity *entity = this->m_resource->update(id, this->request()->content());
+        Entity *entity = this->m_resource->update(id, content);
 
-        content = this->buildJson(entity);
+        responseContent = this->buildJson(entity);
 
         delete entity;
     } catch(ParamNotFoundException) {
-        EntityCollection *collection = this->m_resource->update(this->request()->content());
+        EntityCollection *collection = this->m_resource->update(content);
 
-        content = this->buildJson(collection);
+        responseContent = this->buildJson(collection);
 
         delete collection;
     }
 
-    this->response()->setContent(content);
+    this->response()->setContent(responseContent);
 }
 
-void RestController::doPut()
+void RestController::doPut(string content)
 {
-    string content;
+    string responseContent;
 
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
-        Entity *entity = this->m_resource->replace(id, this->request()->content());
+        Entity *entity = this->m_resource->replace(id, content);
 
-        content = this->buildJson(entity);
+        responseContent = this->buildJson(entity);
 
         delete entity;
     } catch(ParamNotFoundException) {
-        EntityCollection *collection = this->m_resource->replace(this->request()->content());
+        EntityCollection *collection = this->m_resource->replace(content);
 
-        content = this->buildJson(collection);
+        responseContent = this->buildJson(collection);
 
         delete collection;
     }
 
-    this->response()->setContent(content);
+    this->response()->setContent(responseContent);
 }
 
 void RestController::doDelete()
