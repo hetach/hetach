@@ -22,6 +22,7 @@
 #define HETACH_APIREST_RESTCONTROLLER_H
 
 #include <string>
+#include <exception>
 #include <hetach/http-kernel/controller.h>
 
 #include "hetach/api-rest/resource.h"
@@ -87,8 +88,7 @@ namespace Hetach {
         protected:
             Resource *m_resource;
 
-            std::string buildJson(Entity* entity);
-            std::string buildJson(EntityCollection* collection);
+            std::string buildError(std::exception &exception);
         };
     }
 }

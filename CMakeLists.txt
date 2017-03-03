@@ -57,6 +57,8 @@ set(
     include/hetach/api-rest/apirest.h
     include/hetach/api-rest/entity.h
     include/hetach/api-rest/entitycollection.h
+    include/hetach/api-rest/entitynotfoundexception.h
+    include/hetach/api-rest/exception.h
     include/hetach/api-rest/resource.h
     include/hetach/api-rest/restcontroller.h
 

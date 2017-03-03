@@ -26,6 +26,8 @@
 #include <hetach/router/paramnotfoundexception.h>
 
 #include "hetach/api-rest/restcontroller.h"
+#include "hetach/api-rest/entitynotfoundexception.h"
+#include "hetach/api-rest/exception.h"
 
 using namespace std;
 using namespace Hetach::ApiRest;
@@ -40,96 +42,115 @@ RestController::RestController(Resource *resource): Controller()
 
 void RestController::doGet()
 {
-    string content;
+    this->response()->setStatusCode(200);
 
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
         Entity *entity = this->m_resource->fetch(id);
 
-        content = this->buildJson(entity);
+        this->response()->setContent(entity->toJson());
 
         delete entity;
     } catch(ParamNotFoundException) {
         EntityCollection *collection = this->m_resource->fetchAll();
 
-        content = this->buildJson(collection);
+        this->response()->setContent(collection->toJson());
 
         delete collection;
+    } catch(EntityNotFoundException) {
+        this->response()->setContent("");
+        this->response()->setStatusCode(404);
+    } catch(Exception &exception) {
+        this->response()->setContent(this->buildError(exception));
+        this->response()->setStatusCode(500);
     }
-
-    this->response()->setContent(content);
 }
 
 void RestController::doPost(string content)
 {
-    Entity *entity = this->m_resource->create(content);
+    try {
+        Entity *entity = this->m_resource->create(content);
+        this->response()->setContent(entity->toJson());
 
-    string responseContent = this->buildJson(entity);
-
-    delete entity;
-
-    this->response()->setContent(responseContent);
+        delete entity;
+    } catch(Exception &exception) {
+        this->response()->setContent(this->buildError(exception));
+        this->response()->setStatusCode(500);
+    }
 }
 
 void RestController::doPatch(string content)
 {
-    string responseContent;
+    this->response()->setStatusCode(200);
 
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
         Entity *entity = this->m_resource->update(id, content);
 
-        responseContent = this->buildJson(entity);
+        this->response()->setContent(entity->toJson());
 
         delete entity;
     } catch(ParamNotFoundException) {
         EntityCollection *collection = this->m_resource->update(content);
 
-        responseContent = this->buildJson(collection);
+        this->response()->setContent(collection->toJson());
 
         delete collection;
+    } catch(EntityNotFoundException) {
+        this->response()->setContent("");
+        this->response()->setStatusCode(404);
+    } catch(Exception &exception) {
+        this->response()->setContent(this->buildError(exception));
+        this->response()->setStatusCode(500);
     }
-
-    this->response()->setContent(responseContent);
 }
 
 void RestController::doPut(string content)
 {
-    string responseContent;
+    this->response()->setStatusCode(200);
 
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
         Entity *entity = this->m_resource->replace(id, content);
 
-        responseContent = this->buildJson(entity);
+        this->response()->setContent(entity->toJson());
 
         delete entity;
     } catch(ParamNotFoundException) {
         EntityCollection *collection = this->m_resource->replace(content);
 
-        responseContent = this->buildJson(collection);
+        this->response()->setContent(collection->toJson());
 
         delete collection;
+    } catch(EntityNotFoundException) {
+        this->response()->setContent("");
+        this->response()->setStatusCode(404);
+    } catch(Exception &exception) {
+        this->response()->setContent(this->buildError(exception));
+        this->response()->setStatusCode(500);
     }
-
-    this->response()->setContent(responseContent);
 }
 
 void RestController::doDelete()
 {
+    this->response()->setContent("");
+    this->response()->setStatusCode(204);
+
     try {
         int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
 
         this->m_resource->remove(id);
     } catch(ParamNotFoundException) {
         this->m_resource->remove();
+    } catch(EntityNotFoundException) {
+        this->response()->setStatusCode(404);
+    } catch(Exception &exception) {
+        this->response()->setContent(this->buildError(exception));
+        this->response()->setStatusCode(500);
     }
-
-    this->response()->setContent("");
-    this->response()->setStatusCode(204);
 }
 
 void RestController::handle(Request *request, Response *response, Router::Params *routeParams)
@@ -139,12 +160,7 @@ void RestController::handle(Request *request, Response *response, Router::Params
     this->response()->addHeader(Header("Content-type", "application/json"));
 }
 
-string RestController::buildJson(Entity *entity)
+string RestController::buildError(exception &exception)
 {
-    return entity->toJson();
-}
-
-string RestController::buildJson(EntityCollection* collection)
-{
-    return collection->toJson();
+    return "{\"error\": \"" + string(exception.what()) + "\"}";
 }
