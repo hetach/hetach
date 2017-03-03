@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+#### **0.1.3** _(04.03.2017)_
+- Api error handling
+
 #### **0.1.2** _(25.02.2017)_
 - Fixed ApiRest request content pass
 
