@@ -50,6 +50,12 @@ namespace Hetach {
             WebServer(std::string address, int port);
 
             /**
+             * @brief WebServer
+             * @param port
+             */
+            WebServer(int port);
+
+            /**
              * @brief listen
              * @return
              */

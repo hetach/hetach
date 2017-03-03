@@ -50,6 +50,12 @@ WebServer::WebServer(string address, int port) : Server()
     this->m_port = port;
 }
 
+WebServer::WebServer(int port) : Server()
+{
+    this->m_addres = "127.0.0.1";
+    this->m_port = port;
+}
+
 bool WebServer::listen()
 {
     WebServerPrivate::onRequest = this->m_onRequest;
