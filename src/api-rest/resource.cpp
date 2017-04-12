@@ -33,7 +33,7 @@ Resource::Resource()
 
 }
 
-Entity* Resource::fetch(int)
+Entity* Resource::fetch(std::string)
 {
     throw MethodNotImplementedException();
 }
@@ -48,7 +48,7 @@ Entity* Resource::create(string)
     throw MethodNotImplementedException();
 }
 
-Entity* Resource::update(int, string)
+Entity* Resource::update(std::string, string)
 {
     throw MethodNotImplementedException();
 }
@@ -58,7 +58,7 @@ EntityCollection* Resource::update(string)
     throw MethodNotImplementedException();
 }
 
-Entity* Resource::replace(int, string)
+Entity* Resource::replace(std::string, string)
 {
     throw MethodNotImplementedException();
 }
@@ -68,7 +68,7 @@ EntityCollection* Resource::replace(string)
     throw MethodNotImplementedException();
 }
 
-Entity* Resource::remove(int)
+Entity* Resource::remove(std::string)
 {
     throw MethodNotImplementedException();
 }

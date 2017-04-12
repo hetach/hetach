@@ -45,7 +45,7 @@ namespace Hetach {
              * @param id
              * @return
              */
-            virtual Entity* fetch(int id);
+            virtual Entity* fetch(std::string id);
 
             /**
              * @brief Fetch (GET) collection of Entities. To implement by user
@@ -66,7 +66,7 @@ namespace Hetach {
              * @param content
              * @return
              */
-            virtual Entity* update(int id, std::string content);
+            virtual Entity* update(std::string id, std::string content);
 
             /**
              * @brief Update (PATCH) collection of Entities. To implement by user
@@ -81,7 +81,7 @@ namespace Hetach {
              * @param content
              * @return
              */
-            virtual Entity* replace(int id, std::string content);
+            virtual Entity* replace(std::string id, std::string content);
 
             /**
              * @brief Replace (PUT) collection of Entities. To implement by user
@@ -95,7 +95,7 @@ namespace Hetach {
              * @param id
              * @return
              */
-            virtual Entity* remove(int id);
+            virtual Entity* remove(std::string id);
 
             /**
              * @brief Remove (DELETE) collection of Entities. To implement by user
