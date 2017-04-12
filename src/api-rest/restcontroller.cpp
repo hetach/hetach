@@ -45,7 +45,7 @@ void RestController::doGet()
     this->response()->setStatusCode(200);
 
     try {
-        int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
+        string id = this->routeParams()->value(this->m_resource->name()+"Id");
 
         Entity *entity = this->m_resource->fetch(id);
 
@@ -85,7 +85,7 @@ void RestController::doPatch(string content)
     this->response()->setStatusCode(200);
 
     try {
-        int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
+        string id = this->routeParams()->value(this->m_resource->name()+"Id");
 
         Entity *entity = this->m_resource->update(id, content);
 
@@ -112,7 +112,7 @@ void RestController::doPut(string content)
     this->response()->setStatusCode(200);
 
     try {
-        int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
+        string id = this->routeParams()->value(this->m_resource->name()+"Id");
 
         Entity *entity = this->m_resource->replace(id, content);
 
@@ -140,7 +140,7 @@ void RestController::doDelete()
     this->response()->setStatusCode(204);
 
     try {
-        int id = stoi(this->routeParams()->value(this->m_resource->name()+"Id"));
+        string id = this->routeParams()->value(this->m_resource->name()+"Id");
 
         this->m_resource->remove(id);
     } catch(ParamNotFoundException) {
