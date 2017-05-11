@@ -1,5 +1,3 @@
-## CHANGELOG
-
 #### **0.1.3** _(04.03.2017)_
 - Api error handling
 

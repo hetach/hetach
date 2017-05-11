@@ -3,3 +3,4 @@ Makefile
 *.user
 .idea
 docs/api
+site

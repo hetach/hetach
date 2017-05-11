@@ -1,0 +1,10 @@
+site_name: Hetach
+pages:
+  - Home: index.md
+  - What's Hetach?: whats-hetach.md
+  - Integration: integration.md
+  - Quick start: quick-start.md
+  - FastCGI: fast-cgi.md
+  - Web servers: web-servers.md
+  - Changelog: changelog.md
+theme: readthedocs
