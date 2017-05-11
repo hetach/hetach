@@ -7,6 +7,8 @@
 * [Web servers](/web-servers)
 * [Changelog](/changelog)
 
-__API:__ [API Documentation](/api/index.html)
+__API documentation:__ [https://hetach.gihub.io/api/index.html](/api/index.html)
 
 __Source code:__ [https://github.com/hetach/hetach](https://github.com/hetach/hetach)
+
+__Examples:__ [https://github.com/hetach/examples](https://github.com/hetach/examples)
