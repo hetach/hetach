@@ -2,5 +2,5 @@ build*
 Makefile
 *.user
 .idea
-docs/api
+api
 site
