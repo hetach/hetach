@@ -4,3 +4,4 @@ Makefile
 .idea
 api
 site
+.DS_Store
